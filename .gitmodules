@@ -1,0 +1,3 @@
+[submodule "Legodroid"]
+	path = Legodroid
+	url = https://github.com/alvisespano/Legodroid.git
