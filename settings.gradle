@@ -1,1 +1,3 @@
-include ':app'
+include ':app', ':lego', ':lib'
+project(':lego').projectDir = new File('Legodroid/app')
+project(':lib').projectDir = new File('Legodroid/lib')
