@@ -45,4 +45,11 @@ public class Event {
     public void setOccourrency(int occourrency){
         this.occourrency = occourrency;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Event)) return false;
+        if(((Event)o).dateTime == this.dateTime && ((Event)o).color == this.color && ((Event)o).day == this.day) return true;
+        return false;
+    }
 }

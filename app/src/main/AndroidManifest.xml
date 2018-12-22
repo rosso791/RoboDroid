@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ActivityApp.MenuActivity" />
         <activity android:name=".ActivityApp.CalendarActivity" />
-        <activity android:name=".ActivityApp.StatusActivity"></activity>
+        <activity android:name=".ActivityApp.StatusActivity" />
+        <activity android:name=".ActivityApp.AddEvent"></activity>
     </application>
 
 </manifest>
