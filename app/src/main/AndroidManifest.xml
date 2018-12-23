@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ActivityApp.MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".ActivityApp.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityApp.MenuActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActivityApp.CalendarActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActivityApp.StatusActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityApp.MenuActivity" />
+        <activity android:name=".ActivityApp.CalendarActivity" />
+        <activity android:name=".ActivityApp.StatusActivity"/>
         <activity android:name=".ActivityApp.AddEvent"
             android:screenOrientation="portrait"></activity>
     </application>
