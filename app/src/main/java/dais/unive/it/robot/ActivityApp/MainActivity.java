@@ -10,7 +10,6 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
-import dais.unive.it.robot.Automation.Ev3Connection;
 import dais.unive.it.robot.R;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
