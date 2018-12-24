@@ -16,5 +16,5 @@ git submodule add https://github.com/alvisespano/Legodroid.git
 8. Dare il comando **$ git submodule update**
 9. Ora nella cartella LegoDroid sono presenti i file della libreria LegoDroid.
 
-#### Istruzioni per push delle modifiche del progetto
+#### 
 
