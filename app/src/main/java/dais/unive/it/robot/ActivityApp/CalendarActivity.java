@@ -11,7 +11,14 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import dais.unive.it.robot.CalendarClass.Event;
+import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.R;
+
+import static dais.unive.it.robot.CalendarClass.EventManager.getInstance;
 
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {

@@ -9,12 +9,12 @@ public class EventManager {
 
     private List<Event> events;
 
-    private EventManager() {
+    protected EventManager() {
         events = new ArrayList<Event>();
         // ToDo...
     }
 
-    public static EventManager GetInstance() {
+    public static EventManager getInstance() {
         if(instance == null) {
             instance = new EventManager();
             // ToDo deserialize object
@@ -31,12 +31,12 @@ public class EventManager {
         // serialize events
     }
 
-    public void AddEvent(Event e) {
+    public void addEvent(Event e) {
         events.add(e);
         serialize();
     }
 
-    public void DeleteEvent(Event e) {
+    public void deleteEvent(Event e) {
         events.remove(e);
         serialize();
     }
