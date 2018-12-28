@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/menu"
+        android:id="@+id/menuText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"

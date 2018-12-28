@@ -17,6 +17,9 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         showNextActivity = (Button) findViewById(R.id.calendar);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //Calendar button that leads to CalendarActivity
+        showNextActivity = (Button) findViewById(R.id.calendarButton);
         Intent intentCalendar = new Intent(MenuActivity.this, CalendarActivity.class);
         showNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,7 +28,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        showNextActivity = (Button) findViewById(R.id.status);
+
+        //Status button that leads to StatusActivity
+        showNextActivity = (Button) findViewById(R.id.statusButton);
         Intent intentStatus = new Intent(MenuActivity.this, StatusActivity.class);
         showNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override

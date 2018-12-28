@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -18,6 +21,8 @@ import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
     private static int TIME_OUT = 1000;
+    private Button startButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
