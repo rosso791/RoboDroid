@@ -27,18 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Start button that leads to MenuActivity
-        startButton = findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MenuActivity.class));
-            }
-        });
-        //hello
-
-        //TODO da attivare
-        /*
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         try{
             EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());
@@ -52,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "fatal error: cannot connect to EV3");
             e.printStackTrace();
         }
-        */
 
     }
 }
