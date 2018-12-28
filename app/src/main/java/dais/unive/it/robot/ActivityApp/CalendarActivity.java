@@ -47,14 +47,13 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.add:
-                Toast.makeText(this, "add click", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "add click", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(CalendarActivity.this, AddEvent.class);
                 startActivity(intent2);
             case R.id.modify:
-                Toast.makeText(this, "modify click", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(this, "modify click", Toast.LENGTH_SHORT).show();
             case R.id.delete:
-                Toast.makeText(this, "delete click", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "delete click", Toast.LENGTH_SHORT).show();
 
         }
         return true;
