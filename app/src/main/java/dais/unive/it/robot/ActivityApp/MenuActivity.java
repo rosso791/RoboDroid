@@ -1,6 +1,7 @@
 package dais.unive.it.robot.ActivityApp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,10 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        showNextActivity = (Button) findViewById(R.id.calendar);
+        //Calendar button that leads to CalendarActivity
+        showNextActivity = (Button) findViewById(R.id.calendarButton);
         Intent intentCalendar = new Intent(MenuActivity.this, CalendarActivity.class);
         showNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,7 +27,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        showNextActivity = (Button) findViewById(R.id.status);
+
+        //Status button that leads to StatusActivity
+        showNextActivity = (Button) findViewById(R.id.statusButton);
         Intent intentStatus = new Intent(MenuActivity.this, StatusActivity.class);
         showNextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
