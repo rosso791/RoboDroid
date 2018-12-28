@@ -16,7 +16,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        showNextActivity = (Button) findViewById(R.id.calendar);
+        
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Calendar button that leads to CalendarActivity
         showNextActivity = (Button) findViewById(R.id.calendarButton);
