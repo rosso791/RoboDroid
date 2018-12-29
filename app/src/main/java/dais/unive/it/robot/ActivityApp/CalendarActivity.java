@@ -18,7 +18,7 @@ import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.R;
 
-import static dais.unive.it.robot.CalendarClass.EventManager.getInstance;
+import static dais.unive.it.robot.CalendarClass.EventManager.GetInstance;
 
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -50,8 +50,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 //Toast.makeText(this, "add click", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(CalendarActivity.this, AddEvent.class);
                 startActivity(intent2);
-            case R.id.modify:
-                //Toast.makeText(this, "modify click", Toast.LENGTH_SHORT).show();
             case R.id.delete:
                 //Toast.makeText(this, "delete click", Toast.LENGTH_SHORT).show();
 

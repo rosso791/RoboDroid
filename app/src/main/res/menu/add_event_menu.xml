@@ -3,9 +3,6 @@
     <item android:id="@+id/add"
         android:title = "Aggiungi"/>
 
-    <item android:id="@+id/modify"
-        android:title = "Modifica"/>
-
     <item android:id="@+id/delete"
         android:title = "Cancella"/>
 
