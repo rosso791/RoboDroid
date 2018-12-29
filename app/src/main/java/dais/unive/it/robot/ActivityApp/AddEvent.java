@@ -28,10 +28,6 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        //Cancellato perché gestisco con Landscape
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Occurrency Spinner
         Spinner occurrencySpinner = findViewById(R.id.occurrencySpinner);
