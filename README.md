@@ -15,7 +15,9 @@ git submodule add https://github.com/alvisespano/Legodroid.git
 7. Dare il comando **$ git submodule update**
 8. Ora nella cartella LegoDroid sono presenti i file della libreria LegoDroid e gson.
 
-####Istruzioni per la clonazione di un branch
+
+
+#### Istruzioni per la clonazione di un branch
 
 1. Posizionarsi nella cartella dove si vuole clonare il progetto e aprire la bash di git
 2. Dare il comando **$ git clone -b < nome branch > https://github.com/rosso791/RoboDroid**
