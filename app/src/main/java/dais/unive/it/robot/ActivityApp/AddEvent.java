@@ -1,23 +1,28 @@
 package dais.unive.it.robot.ActivityApp;
 
-import android.content.pm.ActivityInfo;
-
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import dais.unive.it.robot.CalendarClass.Event;
+import dais.unive.it.robot.CalendarClass.EventManager;
+import dais.unive.it.robot.CalendarClass.PillColors;
+import dais.unive.it.robot.CalendarClass.WeekDay;
 import dais.unive.it.robot.R;
 
 public class AddEvent extends AppCompatActivity {
@@ -28,6 +33,10 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //Cancellato perché gestisco con Landscape
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Occurrency Spinner
         Spinner occurrencySpinner = findViewById(R.id.occurrencySpinner);
@@ -84,17 +93,84 @@ public class AddEvent extends AppCompatActivity {
         });
 
 
+        // 2018-12-29 Pagnin
+        Button saveButton = findViewById(R.id.saveButton);
+
+        saveButton.setOnClickListener(v -> {
+            PillColors color;
+            Calendar.getInstance().set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
+            WeekDay wd;
+            switch (daySpinner.getSelectedItem().toString()) {
+                case "Lunedì":
+                    wd = WeekDay.Mon;
+                    break;
+                case "Martedì":
+                    wd = WeekDay.Tue;
+                    break;
+                case "Mercoledì":
+                    wd = WeekDay.Wed;
+                    break;
+                case "Giovedì":
+                    wd = WeekDay.Thu;
+                    break;
+                case "Venerdì":
+                    wd = WeekDay.Fri;
+                    break;
+                case "Sabato":
+                    wd = WeekDay.Sat;
+                    break;
+                case "Domenica":
+                    wd = WeekDay.Sun;
+                    break;
+                default:
+                    wd = null;
+            }
+            switch (((Spinner) findViewById(R.id.colorSpinner)).getSelectedItemPosition()) {
+                case 0:
+                    color = PillColors.blue;
+                    break;
+                case 1:
+                    color = PillColors.green;
+                    break;
+                case 2:
+                    color = PillColors.red;
+                    break;
+                case 3:
+                    color = PillColors.yellow;
+                    break;
+                default:
+                    color = PillColors.red;
+            }
+            try {
+                switch (occurrencySpinner.getSelectedItemPosition()) {
+                    case 0:
+                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, Calendar.getInstance(), wd);
+                        break;
+                    case 1:
+                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, Calendar.getInstance(), wd);
+                        break;
+                    case 2:
+                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, Calendar.getInstance(), wd);
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
         //Time Picker
-        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        TimePicker timePicker = findViewById(R.id.timePicker);
 
         //Color Spinner
         class SpinnerAdapter extends BaseAdapter {
-            ArrayList<Integer> colors;
-            Context context;
+            private ArrayList<Integer> colors;
+            private Context context;
 
-            public SpinnerAdapter(Context context) {
+            private SpinnerAdapter(Context context) {
                 this.context=context;
-                colors=new ArrayList<Integer>();
+                colors= new ArrayList<>();
                 int retrieve []=context.getResources().getIntArray(R.array.items_colors);
                 for (int re:retrieve) {
                     colors.add(re);
@@ -114,7 +190,7 @@ public class AddEvent extends AppCompatActivity {
             public View getView(int pos, View view, ViewGroup parent) {
                 LayoutInflater inflater=LayoutInflater.from(context);
                 view = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, null);
-                TextView txv=(TextView)view.findViewById(android.R.id.text1);
+                TextView txv= view.findViewById(android.R.id.text1);
                 txv.setBackgroundColor(colors.get(pos));
                 txv.setTextSize(24f);
                 //txv.setText("Text  "+pos);
@@ -122,7 +198,7 @@ public class AddEvent extends AppCompatActivity {
             }
         }
 
-        Spinner colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
+        Spinner colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setAdapter(new SpinnerAdapter(this));
     }
 }

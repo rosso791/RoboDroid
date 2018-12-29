@@ -18,7 +18,7 @@ import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.R;
 
-import static dais.unive.it.robot.CalendarClass.EventManager.getInstance;
+import static dais.unive.it.robot.CalendarClass.EventManager.GetInstance;
 
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
