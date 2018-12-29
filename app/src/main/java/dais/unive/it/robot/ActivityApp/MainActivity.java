@@ -28,18 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        try{
-            EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());
-            new Handler().postDelayed(() -> {
-                Intent i = new Intent(MainActivity.this, MenuActivity.class);
-                startActivity(i);
-                finish();
-            }, TIME_OUT);
-        }
-        catch(IOException e ){
-            Log.e(TAG, "fatal error: cannot connect to EV3");
-            e.printStackTrace();
-        }
+        //        try{
+        // ToDo rimettere il EV3 con il blocco try..catch
+//            EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());
+        new Handler().postDelayed(() -> {
+            Intent i = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(i);
+            finish();
+        }, TIME_OUT);
+//        }
+//        catch(IOException e ){
+//            Log.e(TAG, "fatal error: cannot connect to EV3");
+//            e.printStackTrace();
+//        }
 
     }
 }

@@ -1,3 +1,4 @@
-include ':app', ':lego', ':lib'
+include ':app', ':lego', ':lib', ':gsonj'
 project(':lego').projectDir = new File('Legodroid/app')
 project(':lib').projectDir = new File('Legodroid/lib')
+project(':gsonj').projectDir = new File('gson/gson')

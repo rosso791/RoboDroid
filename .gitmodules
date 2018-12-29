@@ -1,3 +1,6 @@
 [submodule "Legodroid"]
 	path = Legodroid
 	url = https://github.com/alvisespano/Legodroid.git
+[submodule "gson"]
+	path = gson
+	url = https://github.com/google/gson

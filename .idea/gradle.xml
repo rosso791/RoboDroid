@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/Legodroid/app" />
             <option value="$PROJECT_DIR$/Legodroid/lib" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/gson/gson" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
