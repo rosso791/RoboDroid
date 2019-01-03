@@ -3,6 +3,7 @@ package dais.unive.it.robot.CalendarClass;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,8 @@ public class EventManager extends AppCompatActivity {
 
     private static final String FILENAME = "/calendar.json";
     private static EventManager instance;
+
+    private static final String FILENAME = "/calendar.json";
 
     Timer timer = new Timer();
 
@@ -63,7 +66,7 @@ public class EventManager extends AppCompatActivity {
             File file = new File(path);
             if(file.exists()) {
                 FileReader r = new FileReader(path);
-                Type t = new TypeToken<List<Event>>(){}.getType();
+                java.lang.reflect.Type t = new TypeToken<List<Event>>(){}.getType();
                 events = (ArrayList<Event>)unserializer.fromJson(r, t);
             }
         } catch (IOException e) {
