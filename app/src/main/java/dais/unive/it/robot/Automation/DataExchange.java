@@ -18,6 +18,7 @@ public class DataExchange {
     private static int[] colorQuantityArray = new int[5];
 
     private static Queue<Integer> colorRequestQueue = new LinkedList<>();
+    private static Queue<Integer> notificationQueue = new LinkedList<>();
 
     //Constructor
     private DataExchange(){}
@@ -26,6 +27,7 @@ public class DataExchange {
     public static DataExchange GetInstance(){
         return dataExchange;
     }
+
 
     //Get the color discharge request
     public static int GetColorDischargeRequest(){
@@ -119,6 +121,24 @@ public class DataExchange {
     //Decrease color quantity on n units by id
     public static void DecreaseColorQuantity(int colorId, int units){
         colorQuantityArray[colorId] -= units;
+    }
+
+    //Add notification to queue
+    public static void AddNotificationToQueue(int notification){
+        notificationQueue.add(notification);
+    }
+
+    //Peek notification from queue
+    public static int PeekNotificationFromQueue(){
+        int colorToDischarge;
+        if (notificationQueue.size() > 0) {
+            return notificationQueue.peek();
+        }
+        else
+        {
+            return  0;
+        }
+
     }
 
     //Decode color (just visualization)

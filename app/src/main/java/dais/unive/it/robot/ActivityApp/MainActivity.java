@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.R;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        DataExchange.IncreaseColorQuantity(1,5);
+        DataExchange.IncreaseColorQuantity(2,1);
+        DataExchange.IncreaseColorQuantity(3,2);
 //        try{
             // ToDo rimettere il EV3 con il blocco try..catch
 //            EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());

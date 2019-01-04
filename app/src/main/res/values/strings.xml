@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Robot</string>
 
+    <string name="menu_status">Stato</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -20,6 +21,19 @@
     <string name="daily">Giornaliera</string>
     <string name="weekly">Settimanale</string>
     <string name="modalityText">Ripetizione</string>
+    <string name="red_ball">Rosso</string>
+    <string name="red_number" />
+    <string name="blue_ball">Blue</string>
+    <string name="blue_number" />
+    <string name="yellow_ball">Giallo</string>
+    <string name="yellow_number" />
+    <string name="green_ball">Green</string>
+    <string name="green_number" />
+    <string name="calendario">Calendario</string>
+    <string name="alarm_text">Allarmi</string>
+    <string name="elimante_event_button_text">Elimina</string>
+    <string name="eliminate_event_text">Elimina evento</string>
+
     <string-array name="days_array">
         <item>Lunedì</item>
         <item>Martedì</item>

@@ -1,6 +1,7 @@
 package dais.unive.it.robot.ActivityApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,9 @@ public class AddEvent extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
 
         //Cancellato perché gestisco con Landscape
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -93,70 +97,83 @@ public class AddEvent extends AppCompatActivity {
         });
 
 
+
+
+
         // 2018-12-29 Pagnin
         Button saveButton = findViewById(R.id.saveButton);
 
-        saveButton.setOnClickListener(v -> {
-            PillColors color;
-            Calendar.getInstance().set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
-            WeekDay wd;
-            switch (daySpinner.getSelectedItem().toString()) {
-                case "Lunedì":
-                    wd = WeekDay.Mon;
-                    break;
-                case "Martedì":
-                    wd = WeekDay.Tue;
-                    break;
-                case "Mercoledì":
-                    wd = WeekDay.Wed;
-                    break;
-                case "Giovedì":
-                    wd = WeekDay.Thu;
-                    break;
-                case "Venerdì":
-                    wd = WeekDay.Fri;
-                    break;
-                case "Sabato":
-                    wd = WeekDay.Sat;
-                    break;
-                case "Domenica":
-                    wd = WeekDay.Sun;
-                    break;
-                default:
-                    wd = null;
-            }
-            switch (((Spinner) findViewById(R.id.colorSpinner)).getSelectedItemPosition()) {
-                case 0:
-                    color = PillColors.blue;
-                    break;
-                case 1:
-                    color = PillColors.green;
-                    break;
-                case 2:
-                    color = PillColors.red;
-                    break;
-                case 3:
-                    color = PillColors.yellow;
-                    break;
-                default:
-                    color = PillColors.red;
-            }
-            try {
-                switch (occurrencySpinner.getSelectedItemPosition()) {
+        saveButton.setOnClickListener(new View.OnClickListener(){
+
+            public void save(View v){
+                PillColors color;
+                Calendar.getInstance().set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
+                WeekDay wd;
+                switch (daySpinner.getSelectedItem().toString()) {
+                    case "Lunedì":
+                        wd = WeekDay.Mon;
+                        break;
+                    case "Martedì":
+                        wd = WeekDay.Tue;
+                        break;
+                    case "Mercoledì":
+                        wd = WeekDay.Wed;
+                        break;
+                    case "Giovedì":
+                        wd = WeekDay.Thu;
+                        break;
+                    case "Venerdì":
+                        wd = WeekDay.Fri;
+                        break;
+                    case "Sabato":
+                        wd = WeekDay.Sat;
+                        break;
+                    case "Domenica":
+                        wd = WeekDay.Sun;
+                        break;
+                    default:
+                        wd = null;
+                }
+                switch (((Spinner) findViewById(R.id.colorSpinner)).getSelectedItemPosition()) {
                     case 0:
-                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, Calendar.getInstance(), wd);
+                        color = PillColors.blue;
                         break;
                     case 1:
-                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, Calendar.getInstance(), wd);
+                        color = PillColors.green;
                         break;
                     case 2:
-                        EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, Calendar.getInstance(), wd);
+                        color = PillColors.red;
                         break;
+                    case 3:
+                        color = PillColors.yellow;
+                        break;
+                    default:
+                        color = PillColors.red;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    switch (occurrencySpinner.getSelectedItemPosition()) {
+                        case 0:
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, Calendar.getInstance(), wd);
+                            break;
+                        case 1:
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, Calendar.getInstance(), wd);
+                            break;
+                        case 2:
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, Calendar.getInstance(), wd);
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                save(v);
+                Intent i = new Intent(AddEvent.this, CalendarActivity.class);
+                startActivity(i);
+            }
         });
 
 
