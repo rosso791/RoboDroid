@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,11 +22,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import dais.unive.it.robot.Automation.DataExchange;
-
 public class EventManager extends AppCompatActivity {
 
-    private static final String FILENAME = "/calendar.json";
     private static EventManager instance;
 
     private static final String FILENAME = "/calendar.json";
@@ -38,18 +34,19 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        timer.schedule( new TimerTask() {
-            public void run() {
-                DataExchange dataExchange = DataExchange.GetInstance();
-                events
-                        .stream()
-                        .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
-                                && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-                                && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-                        .findFirst()
-                        .ifPresent(x -> DataExchange.SetColorDischargeRequest(x.getColorCode()));
-            }
-        }, 0, 10*1000);
+//        timer.schedule( new TimerTask() {
+//            public void run() {
+//
+//                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
+////                events
+////                        .stream()
+////                        .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
+////                            && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+////                            && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
+////                        .forEach(e -> e.);
+//
+//            }
+//        }, 0, 10*1000);
     }
 
     public static EventManager GetInstance() {
@@ -110,6 +107,7 @@ public class EventManager extends AppCompatActivity {
         events.remove(e);
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
+
 
     public Map<Integer, Map<WeekDay, Event>> getAllEvents() {
         Map<Integer, Map<WeekDay, Event>> eventsList = new HashMap<>();
