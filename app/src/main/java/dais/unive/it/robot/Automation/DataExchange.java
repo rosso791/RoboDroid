@@ -123,23 +123,7 @@ public class DataExchange {
         colorQuantityArray[colorId] -= units;
     }
 
-    //Add notification to queue
-    public static void AddNotificationToQueue(int notification){
-        notificationQueue.add(notification);
-    }
 
-    //Peek notification from queue
-    public static int PeekNotificationFromQueue(){
-        int colorToDischarge;
-        if (notificationQueue.size() > 0) {
-            return notificationQueue.peek();
-        }
-        else
-        {
-            return  0;
-        }
-
-    }
 
     //Decode color (just visualization)
     public static String GetColorDescription(int colorId){
