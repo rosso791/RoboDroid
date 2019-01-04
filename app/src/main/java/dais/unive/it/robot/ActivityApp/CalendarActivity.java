@@ -29,15 +29,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        String res = "";
         final Map<Integer, Map<WeekDay, Event>> allEvents = EventManager.GetInstance().getAllEvents();
-        res = allEvents.toString();
-
-        Toast toast = Toast.makeText(getApplicationContext(),res
-                ,
-                Toast.LENGTH_SHORT);
-
-        toast.show();
     }
 
     public void showPopup(View v){
@@ -45,7 +37,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.add_event_menu);
         popup.show();
-
     }
 
     public void goState (View v){
@@ -64,8 +55,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
             case R.id.delete:
                 Intent intent3 = new Intent(CalendarActivity.this, EliminateEvent.class);
                 startActivity(intent3);
-                //Toast.makeText(this, "delete click", Toast.LENGTH_SHORT).show();
-
         }
         return true;
     }

@@ -36,7 +36,7 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        timer.schedule( new TimerTask() {
+        /*timer.schedule( new TimerTask() {
             public void run() {
 //                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
                 events
@@ -46,7 +46,7 @@ public class EventManager extends AppCompatActivity {
                             && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
                         .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColorCode()));
             }
-        }, 0, 10*1000);
+        }, 0, 10*1000);*/
     }
 
     public static EventManager GetInstance() {
