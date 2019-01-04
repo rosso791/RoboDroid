@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.DataExchange;
+
 public class EventManager extends AppCompatActivity {
 
     private static EventManager instance;
@@ -34,19 +36,17 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-//        timer.schedule( new TimerTask() {
-//            public void run() {
-//
+        timer.schedule( new TimerTask() {
+            public void run() {
 //                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
-////                events
-////                        .stream()
-////                        .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
-////                            && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-////                            && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-////                        .forEach(e -> e.);
-//
-//            }
-//        }, 0, 10*1000);
+                events
+                        .stream()
+                        .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
+                            && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                            && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
+                        .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColorCode()));
+            }
+        }, 0, 10*1000);
     }
 
     public static EventManager GetInstance() {
