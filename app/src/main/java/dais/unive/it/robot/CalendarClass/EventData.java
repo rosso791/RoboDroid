@@ -7,13 +7,6 @@ import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
 
 public class EventData {
-    int ints[][] = {{0,2,0,3},{1,2,0,3},{2,2,1,3},{3,2,0,3},{4,2,0,3},{5,2,0,3},{6,2,0,3},
-                    {1,3,1,1},
-                    {2,4,0,1},{4,4,0,1},
-                    {4,5,1,1},
-                    {5,18,3,1},
-                    {5,19,2,1}};
-    int rowNumber = 0;
     ArrayList<Event> eventList = new ArrayList<>();
 
     public EventData(){
