@@ -20,6 +20,7 @@ import java.util.Calendar;
 
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventData;
+import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.R;
 
 
@@ -126,7 +127,7 @@ public class EliminateEvent extends AppCompatActivity {
 
             // Add the colour
             Button colorView = new Button(inputContext);
-            //colorView.setBackgroundColor(getResources().);
+            colorView.setBackgroundColor(resourceColours[tempEvent.getColor().ordinal()]);
             tableRow.addView(colorView);
 
             // Add CheckBox
@@ -167,13 +168,16 @@ public class EliminateEvent extends AppCompatActivity {
         //TODO Sebastian - da implementare
 
         // The cycle is used to see output in console, click on 6: Logcat and search by tag argument "eliminatedEventList"
-        /*for (int i = 0; i < eliminatedEventsList.size(); i++) {
-            String our = Integer.toString(eliminatedEventsList.get(i).getTime().get(Calendar.HOUR_OF_DAY)) +
-                    ":" + Integer.toString(eliminatedEventsList.get(i).getTime().get(Calendar.MINUTE));
-            String day =  getResources().getStringArray(R.array.days_array)[eliminatedEventsList.get(i).getDay() - 1];
-            String color = Integer.toString(eliminatedEventsList.get(i).getColor());
+        for (int i = 0; i < eliminatedEventsList.size(); i++) {
+            String our = Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.HOUR_OF_DAY)) +
+                    ":" + Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.MINUTE));
+            String day =  "" + eliminatedEventsList.get(i).getDay(); // getResources().getStringArray(R.array.days_array)[eliminatedEventsList.get(i).getWhen()];
+            String color = "" + (eliminatedEventsList.get(i).getColor());
             Log.i("eliminatedEventList", "eliminated hour " + our + ", day " + day
                     + ", color " + color);
-        }*/
+        }
+
+        //Intent intent3 = new Intent(CalendarActivity.this, AddEvent.class);
+        startActivity(new Intent(EliminateEvent.this, CalendarActivity.class));
     }
 }

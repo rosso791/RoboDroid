@@ -51,11 +51,11 @@
             android:id="@+id/redNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="76dp"
             android:text="@string/red_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -66,6 +66,7 @@
             android:layout_marginTop="25dp"
             android:text="@string/blue_ball"
             android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -73,56 +74,57 @@
             android:id="@+id/blueNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="69dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="126dp"
             android:text="@string/blue_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="97dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="76dp"
             android:text="@string/yellow_ball"
             android:textColor="@color/yellow"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/redNumber"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/yellowNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="76dp"
             android:text="@string/yellow_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="22dp"
             android:text="@string/green_ball"
             android:textColor="@color/green"
-            app:layout_constraintStart_toEndOf="@+id/addEventGuideline"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <TextView
             android:id="@+id/greenNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="123dp"
             android:text="@string/green_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
