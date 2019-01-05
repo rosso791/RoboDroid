@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.R;
-import dais.unive.it.robot.Temp.EventData;
+import dais.unive.it.robot.CalendarClass.EventData;
 
 
 public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -88,8 +88,8 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
                 // Add the hour TextView in the first column.
                 Button hourView = new Button(inputContext);
-                int thisHour = tempEvent.getTime().get(Calendar.HOUR_OF_DAY);
-                int thisMinute = tempEvent.getTime().get(Calendar.MINUTE);
+                int thisHour = tempEvent.getWhen().get(Calendar.HOUR_OF_DAY);   //getTime().get(Calendar.HOUR_OF_DAY);
+                int thisMinute = tempEvent.getWhen().get(Calendar.MINUTE);      //getTime().get(Calendar.MINUTE);
                 String tempTime = String.format("%02d:%02d", thisHour, thisMinute);
 
                 hourView.setText(tempTime);
@@ -103,11 +103,11 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 thisRowList.add(tempEvent);
                 bitMap.set(i);
 
-                while (j < listSize && eventList.get(j).getTime().get(Calendar.HOUR_OF_DAY) == thisHour &&
-                        eventList.get(j).getTime().get(Calendar.MINUTE) == thisMinute){
+                while (j < listSize && eventList.get(j).getWhen().get(Calendar.HOUR_OF_DAY)  == thisHour &&
+                        eventList.get(j).getWhen().get(Calendar.MINUTE) == thisMinute){
                     // Only 1 colour per slot so compare jth day with the last tempList element day
-                    if (!bitMap.get(j) && thisRowList.get(thisRowList.size()-1).day !=
-                            eventList.get(j).day){
+                    if (!bitMap.get(j) && thisRowList.get(thisRowList.size()-1).getDay() !=
+                            eventList.get(j).getDay()){
                         thisRowList.add(eventList.get(j));
                         // jth element is set on true
                         bitMap.set(j);
@@ -121,9 +121,9 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
                 while (k < 7){
                     Button tempView = new Button(inputContext);
-                    if (r < thisRowList.size() && thisRowList.get(r).getDay()-1 == k){
+                    if (r < thisRowList.size() && thisRowList.get(r).getDay().getHierarchy() == k){
                         //if (r < thisRowList.size() && thisRowList.get(r).getDay() == k) {
-                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor() - 1]);
+                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().getHierarchy()]);
                         r++;
                     }
                     else

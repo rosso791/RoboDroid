@@ -44,6 +44,15 @@
         <item>Sabato</item>
         <item>Domenica</item>
     </string-array>
+    <string-array name="short_days_array">
+        <item>L</item>
+        <item>M</item>
+        <item>M</item>
+        <item>G</item>
+        <item>V</item>
+        <item>S</item>
+        <item>D</item>
+    </string-array>
     <string-array name="void_days_array">
         <item>-</item>
     </string-array>
