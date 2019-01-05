@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,6 @@ public class EventManager extends AppCompatActivity {
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
-
     public Map<Integer, Map<WeekDay, List<Event>>> getAllEvents() {
         Map<Integer, Map<WeekDay, List<Event>>> eventsList = new HashMap<>();
         events
@@ -125,4 +125,21 @@ public class EventManager extends AppCompatActivity {
         return eventsList;
     }
 
+    public int[][] getAllEventsArray() {
+        // ordered by hour, day, color
+        // exposed as [day0-6, hour, color, 0]
+        int[][] result = new int[events.size()][4];
+        events.sort(Comparator.comparingInt(p -> p.getColor().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getDay().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.MINUTE)));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.HOUR_OF_DAY)));
+        int i = 0;
+        events.forEach(e -> {
+            result[i][0] = e.getDay().ordinal();
+            result[i][1] = e.getWhen().get(Calendar.HOUR_OF_DAY) * 60 + e.getWhen().get(Calendar.MINUTE);
+            result[i][2] = e.getColor().ordinal();
+            result[i][3] = 0;
+        });
+        return result;
+    }
 }
