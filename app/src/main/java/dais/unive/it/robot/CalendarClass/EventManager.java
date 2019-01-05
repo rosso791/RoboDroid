@@ -50,7 +50,7 @@ public class EventManager extends AppCompatActivity {
                             if(!e.getRepeat()) events.remove(e);
                         });
             }
-        }, 0, 10*1000);
+        }, 0, 30*1000);
     }
 
     public static EventManager GetInstance() {
@@ -113,7 +113,7 @@ public class EventManager extends AppCompatActivity {
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
-    public Map<Integer, Map<WeekDay, List<Event>>> getAllEvents() {
+/*    public Map<Integer, Map<WeekDay, List<Event>>> getAllEvents() {
         Map<Integer, Map<WeekDay, List<Event>>> eventsList = new HashMap<>();
         events
                 .forEach(e -> {
@@ -141,5 +141,13 @@ public class EventManager extends AppCompatActivity {
             result[i][3] = 0;
         });
         return result;
+    }*/
+
+    public List<Event> getAllEvents() {
+        events.sort(Comparator.comparingInt(p -> p.getColor().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getDay().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.MINUTE)));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.HOUR_OF_DAY)));
+        return events;
     }
 }

@@ -7,37 +7,12 @@ import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
 
 public class EventData {
-    int ints[][] = {{0,2,0,3},{1,2,0,3},{2,2,0,3},{3,2,0,3},{4,2,0,3},{5,2,0,3},{6,2,0,3},
-                    {1,3,1,1},
-                    {2,4,0,1},{4,4,0,1},
-                    {4,5,1,1},
-                    {5,18,3,1},
-                    {5,19,2,1}
-
-                    };
-    int rowNumber = 0;
     ArrayList<Event> eventList = new ArrayList<>();
 
     public EventData(){
-        rowNumber = ints.length;
-
-        /*for (int i = 0; i < ints.length; i++){
-            Calendar tempCalendar = Calendar.getInstance();
-            tempCalendar.set(Calendar.HOUR_OF_DAY, ints[i][1]);
-            tempCalendar.set(Calendar.MINUTE, 0);
-            Event tempEvent = new Event(ints[i][0], tempCalendar, ints[i][2], ints[i][3]);
-            eventList.add(tempEvent);
-        }*/
-        //ints = EventManager.GetInstance().getAllEventsArray();
-        for (int i = 0; i < rowNumber; i++){
-            Calendar tempCalendar = Calendar.getInstance();
-            tempCalendar.set(Calendar.HOUR_OF_DAY, ints[i][1]);
-            tempCalendar.set(Calendar.MINUTE, 0);
-            Event thisEvent = new Event(getDay(ints[i][0]), getColor(ints[i][2]), tempCalendar, false);
-            eventList.add(thisEvent);
-        }
-
+        eventList = (ArrayList)EventManager.GetInstance().getAllEvents();
     }
+
     public ArrayList<Event> getEventList(){
         return eventList;
     }
