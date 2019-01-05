@@ -19,14 +19,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import dais.unive.it.robot.CalendarClass.Event;
+import dais.unive.it.robot.CalendarClass.EventData;
 import dais.unive.it.robot.R;
 
 
 public class EliminateEvent extends AppCompatActivity {
     private Button eliminateButton;
     // TODO Sebastian - sample data to eliminate
-    /*EventData tempEventData = new EventData();
-    ArrayList<Event> tempEventList = tempEventData.getEventList();*/
+    EventData tempEventData = new EventData();
+    ArrayList<Event> tempEventList = tempEventData.getEventList();
 
     /*
      eliminatedEventsList: elements checked by the user ready to eliminate
@@ -51,7 +52,7 @@ public class EliminateEvent extends AppCompatActivity {
                 eliminate();
             }
         });
-        //this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
+        this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
     }
 
     private void drawEliminateTable(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {
@@ -106,11 +107,11 @@ public class EliminateEvent extends AppCompatActivity {
 
             // Add the hour TextView in the first column.
             Button hourView = new Button(inputContext);
-            //int thisHour = tempEvent.getTime().get(Calendar.HOUR_OF_DAY);
-            //int thisMinute = tempEvent.getTime().get(Calendar.MINUTE);
-            //String tempTime = String.format("%02d:%02d", thisHour, thisMinute);
+            int thisHour = tempEvent.getWhen().get(Calendar.HOUR_OF_DAY);
+            int thisMinute = tempEvent.getWhen().get(Calendar.MINUTE);
+            String tempTime = String.format("%02d:%02d", thisHour, thisMinute);
 
-            //hourView.setText(tempTime);
+            hourView.setText(tempTime);
             hourView.setTextColor(Color.WHITE);
             hourView.setBackgroundColor(Color.DKGRAY);
 
@@ -118,14 +119,14 @@ public class EliminateEvent extends AppCompatActivity {
 
             // Add the day TextView in the second column.
             Button dayView = new Button(inputContext);
-            //dayView.setText(resourceDays[tempEvent.getDay() - 1]);
+            dayView.setText(tempEvent.getDay().toString());
             dayView.setTextColor(Color.DKGRAY);
             dayView.setBackgroundColor(Color.WHITE);
             tableRow.addView(dayView);
 
             // Add the colour
             Button colorView = new Button(inputContext);
-            //colorView.setBackgroundColor(resourceColours[tempEvent.getColor() - 1]);
+            //colorView.setBackgroundColor(getResources().);
             tableRow.addView(colorView);
 
             // Add CheckBox
@@ -162,7 +163,6 @@ public class EliminateEvent extends AppCompatActivity {
         }
     }
 
-    // The
     public void eliminate(){
         //TODO Sebastian - da implementare
 
