@@ -37,9 +37,8 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        timer.schedule( new TimerTask() {
+/*        timer.schedule( new TimerTask() {
             public void run() {
-//                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
                 events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
@@ -50,7 +49,7 @@ public class EventManager extends AppCompatActivity {
                             if(!e.getRepeat()) events.remove(e);
                         });
             }
-        }, 0, 30*1000);
+        }, 0, 10*1000);*/
     }
 
     public static EventManager GetInstance() {
