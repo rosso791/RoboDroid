@@ -44,7 +44,10 @@ public class EventManager extends AppCompatActivity {
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
                                 && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
                                 && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
-                        .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColor().ordinal()));
+                        .forEach(e -> {
+                            DataExchange.SetColorDischargeRequest(e.getColor().ordinal());
+                            if(!e.getRepeat()) events.remove(e);
+                        });
             }
         }, 0, 10*1000);
     }
@@ -110,13 +113,14 @@ public class EventManager extends AppCompatActivity {
     }
 
 
-    public Map<Integer, Map<WeekDay, Event>> getAllEvents() {
-        Map<Integer, Map<WeekDay, Event>> eventsList = new HashMap<>();
+    public Map<Integer, Map<WeekDay, List<Event>>> getAllEvents() {
+        Map<Integer, Map<WeekDay, List<Event>>> eventsList = new HashMap<>();
         events
                 .forEach(e -> {
                     int when = e.getWhen().get(Calendar.HOUR) * 60 + e.getWhen().get(Calendar.MINUTE);
                     if(!eventsList.containsKey(when)) eventsList.put(when, new HashMap<>());
-                    eventsList.get(when).put(e.getDay(), e);
+                    if(!eventsList.get(when).containsKey(e.getDay())) eventsList.get(when).put(e.getDay(), new ArrayList<>());
+                    eventsList.get(when).get(e.getDay()).add(e);
                 });
         return eventsList;
     }
