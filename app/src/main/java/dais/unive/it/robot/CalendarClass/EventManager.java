@@ -36,17 +36,17 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        /*timer.schedule( new TimerTask() {
+        timer.schedule( new TimerTask() {
             public void run() {
 //                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
                 events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
-                            && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-                            && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
-                        .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColorCode()));
+                                && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                                && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
+                        .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColor().ordinal()));
             }
-        }, 0, 10*1000);*/
+        }, 0, 10*1000);
     }
 
     public static EventManager GetInstance() {
