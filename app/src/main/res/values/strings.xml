@@ -33,7 +33,8 @@
     <string name="alarm_text">Allarmi</string>
     <string name="elimante_event_button_text">Elimina</string>
     <string name="eliminate_event_text">Elimina evento</string>
-
+    <string name="calendar_text">Calendario</string>
+    <string name="calendarStateButton">Stato</string>
     <string-array name="days_array">
         <item>Lunedì</item>
         <item>Martedì</item>
