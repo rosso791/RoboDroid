@@ -107,7 +107,8 @@ public class AddEvent extends AppCompatActivity {
 
             public void save(View v){
                 PillColors color;
-                Calendar.getInstance().set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
+                Calendar c = Calendar.getInstance();
+                c.set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
                 WeekDay wd;
                 switch (daySpinner.getSelectedItem().toString()) {
                     case "Lunedì":
@@ -139,13 +140,13 @@ public class AddEvent extends AppCompatActivity {
                         color = PillColors.blue;
                         break;
                     case 1:
-                        color = PillColors.green;
-                        break;
-                    case 2:
                         color = PillColors.red;
                         break;
-                    case 3:
+                    case 2:
                         color = PillColors.yellow;
+                        break;
+                    case 3:
+                        color = PillColors.green;
                         break;
                     default:
                         color = PillColors.red;
@@ -153,13 +154,13 @@ public class AddEvent extends AppCompatActivity {
                 try {
                     switch (occurrencySpinner.getSelectedItemPosition()) {
                         case 0:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, c, wd);
                             break;
                         case 1:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, c, wd);
                             break;
                         case 2:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, c, wd);
                             break;
                     }
                 } catch (Exception e) {

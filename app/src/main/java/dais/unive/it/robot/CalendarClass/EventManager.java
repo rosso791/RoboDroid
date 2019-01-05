@@ -37,9 +37,8 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        timer.schedule( new TimerTask() {
+/*        timer.schedule( new TimerTask() {
             public void run() {
-//                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
                 events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
@@ -50,7 +49,7 @@ public class EventManager extends AppCompatActivity {
                             if(!e.getRepeat()) events.remove(e);
                         });
             }
-        }, 0, 30*1000);
+        }, 0, 10*1000);*/
     }
 
     public static EventManager GetInstance() {
@@ -93,23 +92,23 @@ public class EventManager extends AppCompatActivity {
         switch(occurrencyType) {
             case daily:
                 for (WeekDay wday: WeekDay.values()) {
-                    events.add(new Event(wday, color, when, true));
+                    this.events.add(new Event(wday, color, when, true));
                 }
                 break;
             case weekly:
                 if(day == null) throw new Exception("The day isn't specified for a weekly event");
-                events.add(new Event(day, color, when, true));
+                this.events.add(new Event(day, color, when, true));
                 break;
             case onetime:
                 if(day == null) throw new Exception("The day isn't specified for a onetime event");
-                events.add(new Event(day, color, when, false));
+                this.events.add(new Event(day, color, when, false));
                 break;
         }
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
     public void DeleteEvent(Event e) {
-        events.remove(e);
+        this.events.remove(e);
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
