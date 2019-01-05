@@ -13,8 +13,8 @@
 
     <integer-array name="items_colors">
         <item>@color/blue</item>
-        <item>@color/green</item>
         <item>@color/red</item>
         <item>@color/yellow</item>
+        <item>@color/green</item>
     </integer-array>
 </resources>
