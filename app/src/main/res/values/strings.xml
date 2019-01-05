@@ -62,4 +62,8 @@
         <item>Settimanale</item>
     </string-array>
     <string name="title_activity_eliminate_event">EliminateEvent</string>
+    <string name="redLogo" />
+    <string name="yellowLogo" />
+    <string name="greenLogo" />
+    <string name="blueLogo" />
 </resources>
