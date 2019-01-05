@@ -1,61 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityApp.CalendarActivity">
 
-    <TextView
-        android:id="@+id/dayText"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:text="qui va messo  il calendario, sarà una tabella di bottoni dinamica. "
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="308dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="38dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="showPopup"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/design_default_color_primary"
-        app:fabCustomSize="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayText"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/goState"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/calendarConstraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="193dp"
-        android:layout_marginBottom="38dp"
-        android:onClick="goState"
-        android:text="Stato"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-        app:layout_constraintTop_toBottomOf="@+id/dayText" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/calendarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/calendar_text"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="81dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="showPopup"
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="@color/blue"
+            app:fabCustomSize="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendar_table_layout" />
+
+        <Button
+            android:id="@+id/goState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="goState"
+            android:text="@string/calendarStateButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendar_table_layout" />
+
+        <TableLayout
+            android:id="@+id/calendar_table_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="2dp"
+            android:fadeScrollbars="true"
+            android:padding="2dp"
+            android:shrinkColumns="1,2,3,4,5,6,7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarText">
+
+        </TableLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
