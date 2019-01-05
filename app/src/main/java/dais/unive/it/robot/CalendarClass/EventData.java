@@ -17,24 +17,9 @@ public class EventData {
     ArrayList<Event> eventList = new ArrayList<>();
 
     public EventData(){
-        rowNumber = ints.length;
-
-        /*for (int i = 0; i < ints.length; i++){
-            Calendar tempCalendar = Calendar.getInstance();
-            tempCalendar.set(Calendar.HOUR_OF_DAY, ints[i][1]);
-            tempCalendar.set(Calendar.MINUTE, 0);
-            Event tempEvent = new Event(ints[i][0], tempCalendar, ints[i][2], ints[i][3]);
-            eventList.add(tempEvent);
-        }*/
-
-        for (int i = 0; i < rowNumber; i++){
-            Calendar tempCalendar = Calendar.getInstance();
-            tempCalendar.set(Calendar.HOUR_OF_DAY, ints[i][1]);
-            tempCalendar.set(Calendar.MINUTE, 0);
-            Event thisEvent = new Event(getDay(ints[i][0]), getColor(ints[i][1]), tempCalendar, false);
-        }
-
+        eventList = (ArrayList)EventManager.GetInstance().getAllEvents();
     }
+
     public ArrayList<Event> getEventList(){
         return eventList;
     }
