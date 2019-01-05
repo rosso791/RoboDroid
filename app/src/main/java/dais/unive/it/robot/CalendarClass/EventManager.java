@@ -71,6 +71,7 @@ public class EventManager extends AppCompatActivity {
         }
         return events;
     }
+
     private static void serialize(String path) {
         Gson serializer = new Gson();
         try {
