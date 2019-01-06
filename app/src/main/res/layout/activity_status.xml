@@ -135,25 +135,46 @@
             android:id="@+id/calendarStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="36dp"
             android:text="@string/calendario"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_text" />
+            app:layout_constraintTop_toBottomOf="@+id/alarmButton" />
 
         <TextView
-            android:id="@+id/alarm_text"
+            android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="176dp"
-            android:text="@string/alarm_text"
+            android:layout_marginTop="174dp"
+            android:text="@string/alarm"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/addEventGuideline"
             app:layout_constraintTop_toBottomOf="@+id/addNewEventText" />
 
+        <TextView
+            android:id="@+id/alarmText"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="52dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarm"
+            tools:text="@string/alarmText" />
 
+        <Button
+            android:id="@+id/alarmButton"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="8dp"
+            android:text="Risolvi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/alarmText"
+            app:layout_constraintTop_toBottomOf="@+id/alarm" />
 
 
     </android.support.constraint.ConstraintLayout>

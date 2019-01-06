@@ -7,7 +7,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="unive_logo_jpg">unive Logo jpg</string>
     <string name="lego_logo_jpg">lego logo jpg</string>
-    <string name="start">Inizia</string>
     <string name="calendarButton">Calendario</string>
     <string name="menuText">MENU</string>
     <string name="stateText">Stato</string>
@@ -30,7 +29,7 @@
     <string name="green_ball">Green</string>
     <string name="green_number" />
     <string name="calendario">Calendario</string>
-    <string name="alarm_text">Allarmi</string>
+    <string name="alarm">Allarmi</string>
     <string name="elimante_event_button_text">Elimina</string>
     <string name="eliminate_event_text">Elimina evento</string>
     <string name="calendar_text">Calendario</string>
@@ -66,4 +65,6 @@
     <string name="yellowLogo" />
     <string name="greenLogo" />
     <string name="blueLogo" />
+    <string name="alarmText" />
+    <string name="textview">TextView</string>
 </resources>

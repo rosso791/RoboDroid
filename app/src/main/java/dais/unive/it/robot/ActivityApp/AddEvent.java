@@ -19,9 +19,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
+import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
 import dais.unive.it.robot.R;
@@ -218,5 +222,18 @@ public class AddEvent extends AppCompatActivity {
 
         Spinner colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setAdapter(new SpinnerAdapter(this));
+
+
+        //Show notification
+        Timer timer = new Timer();
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (DataExchange.GetNotificationCode() !=0 ){
+                    notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
+                }
+            }
+        }, 0, 10*1000);
     }
 }

@@ -17,8 +17,12 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
+import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.R;
 import dais.unive.it.robot.CalendarClass.EventData;
 
@@ -40,6 +44,19 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         this.drawCalendarHead(tableLayout, context);
         // TODO Sebastian -  modify tempEventList parameter with real eventList
         this.drawCalendar(tempEventList, tableLayout,context);
+
+
+        //Show notification
+        Timer timer = new Timer();
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (DataExchange.GetNotificationCode() !=0 ){
+                    notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
+                }
+            }
+        }, 0, 10*1000);
     }
 
     private void drawCalendarHead(TableLayout inputTableLayout, Context inputContext){
@@ -171,4 +188,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         }
         return true;
     }
+
+
 }
