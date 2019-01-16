@@ -129,7 +129,16 @@ public class BluetoothConnection implements Connection<BluetoothConnection.Bluet
                 Prelude.trap(socket::close);
             }
         }
-    }
 
+        @Override
+        public void sendMailbox(Command p) throws IOException {
+            byte[] a = p.getData();
+            byte[] l = new byte[]{(byte) (a.length & 0xFF), (byte) ((a.length >> 8) & 0xFF)};
+            byte[] w = Prelude.concat(l, a);
+            //   Log.d(TAG, String.format("send: { %s }", Prelude.bytesToHex(w)));
+            out.write(w);
+        }
+
+    }
 
 }

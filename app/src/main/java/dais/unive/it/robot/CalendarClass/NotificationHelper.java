@@ -10,6 +10,10 @@ import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.R;
 import dais.unive.it.robot.ActivityApp.StatusActivity;
 
@@ -37,7 +41,7 @@ public class NotificationHelper {
                 0 /* Request code */, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        mBuilder = new NotificationCompat.Builder(mContext);
+        mBuilder = new NotificationCompat.Builder(mContext,NOTIFICATION_CHANNEL_ID);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle(title)
                 .setContentText(message)
@@ -68,5 +72,11 @@ public class NotificationHelper {
             }
         }
         mNotificationManager.notify(0 /* Request Code */, mBuilder.build());
+    }
+
+    public void checkNotification(){
+                if (DataExchange.GetNotificationCode() !=0 ){
+                    createNotification("Android", DataExchange.GetNotificationDescription());
+                }
     }
 }

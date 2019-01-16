@@ -338,6 +338,24 @@ public class EV3 {
         public void sendNoReply(Bytecode bc) throws IOException {
             ev3.channel.sendNoReply(bc);
         }
+
+        public Future<Reply> sendMailbox(int reservation, @NonNull Bytecode bc) throws IOException {
+            return ev3.channel.sendMailbox(reservation, bc);
+        }
+
+        public Future<float[]> getGlobalVariableValue(int reservation, Bytecode bc) throws IOException {
+            Future<Reply> r = ev3.channel.send(reservation * 4, bc);
+            return execAsync(() -> {
+                Reply reply = r.get();
+                float[] result = new float[reservation];
+                for (int i = 0; i < reservation; i++) {
+                    byte[] bData = Arrays.copyOfRange(reply.getData(), 4 * i, 4 * i + 4);
+                    result[i] = ByteBuffer.wrap(bData).order(ByteOrder.LITTLE_ENDIAN).getFloat();
+                }
+                return result;
+            });
+        }
+
     }
 
     /**

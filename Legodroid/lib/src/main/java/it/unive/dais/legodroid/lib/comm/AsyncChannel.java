@@ -46,4 +46,6 @@ public interface AsyncChannel extends AutoCloseable {
      */
     @Override
     void close();
+
+    Future<Reply> sendMailbox(int reservation, Bytecode bc) throws IOException;
 }

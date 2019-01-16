@@ -37,6 +37,15 @@ public class EventManager extends AppCompatActivity {
 
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
+        events
+                .stream()
+                .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
+                        && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                        && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
+                .forEach(e -> {
+                    DataExchange.AddColorToDischargeQueue(e.getColor().ordinal());
+                    if(!e.getRepeat()) events.remove(e);
+                });
 /*        timer.schedule( new TimerTask() {
             public void run() {
                 events

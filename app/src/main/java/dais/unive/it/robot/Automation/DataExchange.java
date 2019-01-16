@@ -1,9 +1,9 @@
 package dais.unive.it.robot.Automation;
 
-
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 public class DataExchange {
 
@@ -18,7 +18,6 @@ public class DataExchange {
     private static int[] colorQuantityArray = new int[5];
 
     private static Queue<Integer> colorRequestQueue = new LinkedList<>();
-    private static Queue<Integer> notificationQueue = new LinkedList<>();
 
     //Constructor
     private DataExchange(){}
@@ -27,7 +26,6 @@ public class DataExchange {
     public static DataExchange GetInstance(){
         return dataExchange;
     }
-
 
     //Get the color discharge request
     public static int GetColorDischargeRequest(){
@@ -68,7 +66,9 @@ public class DataExchange {
 
     //Remove color from queue
     public static void RemoveColorFromDischargeQueue(){
-        colorRequestQueue.remove();
+        if(colorRequestQueue.size() > 0)
+            colorRequestQueue.remove();
+            System.out.println(".......................................Removed");
     }
 
     //Get all color request queue
@@ -113,6 +113,10 @@ public class DataExchange {
         return colorQuantityArray[colorId];
     }
 
+    //Set color quantity on n units by id
+    public static void SetColorQuantity(int colorId, int units){
+        colorQuantityArray[colorId] = units;
+    }
     //Increase color quantity on n units by id
     public static void IncreaseColorQuantity(int colorId, int units){
         colorQuantityArray[colorId] += units;
@@ -123,7 +127,10 @@ public class DataExchange {
         colorQuantityArray[colorId] -= units;
     }
 
-
+    //Get entire array of color quantities
+    public static int[] GetColorQuantityArray(){
+        return colorQuantityArray;
+    }
 
     //Decode color (just visualization)
     public static String GetColorDescription(int colorId){
@@ -153,46 +160,46 @@ public class DataExchange {
     public static String GetNotificationDescription(){
         String notificationDescription;
         switch (notificationCode){
-            case -9: notificationDescription = "Spare Alarm";
-                break;
-            case -8: notificationDescription = "Spare Alarm";
-                break;
-            case -7: notificationDescription = "Spare Alarm";
-                break;
-            case -6: notificationDescription = "Spare Alarm";
-                break;
-            case -5: notificationDescription = "Spare Alarm";
-                break;
+            case -9: notificationDescription = "Max Red quantity in storage";
+                    break;
+            case -8: notificationDescription = "Max Yellow quantity in storage";
+                    break;
+            case -7: notificationDescription = "Max Green quantity in storage";
+                    break;
+            case -6: notificationDescription = "Max Blue quantity in storage";
+                    break;
+            case -5: notificationDescription = "Memory Check failed. Please restart EV3 first and then the Application.";
+                    break;
             case -4: notificationDescription = "Color not Present\r\nPlease fill with required color";
-                break;
+                    break;
             case -3: notificationDescription = "Pick Up Timeout\r\nPlease remove object from Pick Up zone.";
-                break;
+                    break;
             case -2: notificationDescription = "Discharge Stuck\r\nObject not in expected position during discharging phase.";
-                break;
+                    break;
             case -1: notificationDescription = "Charge Stuck\r\nObject not in expected position during charging phase.";
-                break;
+                    break;
             case 0: notificationDescription = "";
-                break;
-            case 1: notificationDescription = "Pick Up Ready";
-                break;
-            case 2: notificationDescription = "Charge Completed";
-                break;
+                    break;
+            case 2: notificationDescription = "Pick Up Ready";
+                    break;
+            case 1: notificationDescription = "Charge Completed";
+                    break;
             case 3: notificationDescription = "Discharge Completed";
-                break;
+                    break;
             case 4: notificationDescription = "Spare";
-                break;
+                    break;
             case 5: notificationDescription = "Spare";
-                break;
+                    break;
             case 6: notificationDescription = "Spare";
-                break;
+                    break;
             case 7: notificationDescription = "Spare";
-                break;
+                    break;
             case 8: notificationDescription = "Spare";
-                break;
+                    break;
             case 9: notificationDescription = "Spare";
-                break;
+                    break;
             default: notificationDescription = "Unhandled Notification";
-                break;
+                    break;
         }
         return notificationDescription;
     }
@@ -219,4 +226,3 @@ public class DataExchange {
         return activePhaseDescription;
     }
 }
-

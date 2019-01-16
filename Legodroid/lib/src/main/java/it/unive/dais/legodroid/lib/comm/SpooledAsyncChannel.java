@@ -50,6 +50,22 @@ public class SpooledAsyncChannel implements AsyncChannel {
         task.cancel(true);
     }
 
+    @NonNull
+    @Override
+    public FutureReply sendMailbox(int reservation, Bytecode bc) throws IOException {
+        return sendMailbox(new Command(true, 0, reservation, bc.getBytes()));
+
+    }
+
+    public FutureReply sendMailbox(Command cmd) throws IOException {
+        channel.sendMailbox(cmd);
+        FutureReply r = new FutureReply(cmd.getCounter());
+        q.add(r);
+        return r;
+    }
+
+
+
     private static class SpoolerTask extends AsyncTask<Void, Void, Void> {
         private static final String TAG = ReTAG("SpoolerTask");
         private static final int MAX_RETRIES = 5;

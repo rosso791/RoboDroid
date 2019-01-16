@@ -111,4 +111,9 @@ public class Bytecode {
     public byte[] getBytes() {
         return underlying.toByteArray();
     }
+
+    public void addToByteCode(byte[] bc) throws IOException {
+        out.write(bc);
+    }
+
 }

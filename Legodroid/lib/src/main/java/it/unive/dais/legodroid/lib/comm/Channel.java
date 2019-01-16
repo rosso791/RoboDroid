@@ -34,4 +34,6 @@ public interface Channel extends AutoCloseable {
      */
     @Override
     void close();
+
+    void sendMailbox(Command cmd) throws IOException;
 }
