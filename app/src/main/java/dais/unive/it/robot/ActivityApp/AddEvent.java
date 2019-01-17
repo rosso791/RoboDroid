@@ -41,8 +41,6 @@ public class AddEvent extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
-
-
         //Cancellato perché gestisco con Landscape
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -71,7 +69,7 @@ public class AddEvent extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                switch(selectedItemText){
+                switch (selectedItemText) {
                     case "Singola":
                         occurrency = 0;
                         daySpinner.setAdapter(dayAdapter);
@@ -85,7 +83,7 @@ public class AddEvent extends AppCompatActivity {
                         daySpinner.setAdapter(voidDayAdapter);
                         break;
                 }
-                // Notify the selected item text
+                // Notify the selected item texe ToDo eliminare toast
                 Toast.makeText
                         (getApplicationContext(), "Selected : " + selectedItemText,
                                 Toast.LENGTH_SHORT).show();
@@ -101,15 +99,11 @@ public class AddEvent extends AppCompatActivity {
         });
 
 
-
-
-
         // 2018-12-29 Pagnin
         Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
 
-        saveButton.setOnClickListener(new View.OnClickListener(){
-
-            public void save(View v){
+            public void save(View v) {
                 PillColors color;
                 Calendar c = Calendar.getInstance();
                 c.set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
@@ -191,28 +185,34 @@ public class AddEvent extends AppCompatActivity {
             private Context context;
 
             private SpinnerAdapter(Context context) {
-                this.context=context;
-                colors= new ArrayList<>();
-                int retrieve []=context.getResources().getIntArray(R.array.items_colors);
-                for (int re:retrieve) {
+                this.context = context;
+                colors = new ArrayList<>();
+                int retrieve[] = context.getResources().getIntArray(R.array.items_colors);
+                for (int re : retrieve) {
                     colors.add(re);
                 }
             }
 
             @Override
-            public int getCount() { return colors.size();}
+            public int getCount() {
+                return colors.size();
+            }
 
             @Override
-            public Object getItem(int arg0) { return colors.get(arg0);}
+            public Object getItem(int arg0) {
+                return colors.get(arg0);
+            }
 
             @Override
-            public long getItemId(int arg0) { return arg0;}
+            public long getItemId(int arg0) {
+                return arg0;
+            }
 
             @Override
             public View getView(int pos, View view, ViewGroup parent) {
-                LayoutInflater inflater=LayoutInflater.from(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
                 view = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, null);
-                TextView txv= view.findViewById(android.R.id.text1);
+                TextView txv = view.findViewById(android.R.id.text1);
                 txv.setBackgroundColor(colors.get(pos));
                 txv.setTextSize(24f);
                 //txv.setText("Text  "+pos);
@@ -224,16 +224,6 @@ public class AddEvent extends AppCompatActivity {
         colorSpinner.setAdapter(new SpinnerAdapter(this));
 
 
-        //Show notification
-        Timer timer = new Timer();
-        NotificationHelper notificationHelper = new NotificationHelper(this);
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (DataExchange.GetNotificationCode() !=0 ){
-                    notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
-                }
-            }
-        }, 0, 10*1000);
+
     }
 }

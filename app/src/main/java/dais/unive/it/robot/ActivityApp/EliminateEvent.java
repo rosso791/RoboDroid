@@ -61,7 +61,7 @@ public class EliminateEvent extends AppCompatActivity {
 
 
         //Show notification
-        Timer timer = new Timer();
+        /*Timer timer = new Timer();
         NotificationHelper notificationHelper = new NotificationHelper(this);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -70,7 +70,7 @@ public class EliminateEvent extends AppCompatActivity {
                     notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
                 }
             }
-        }, 0, 10*1000);
+        }, 0, 10*1000);*/
     }
 
     private void drawEliminateTable(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {

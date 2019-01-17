@@ -16,12 +16,16 @@ import dais.unive.it.robot.R;
 
 public class MenuActivity extends AppCompatActivity {
     private Button showNextActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        
+        startService(new Intent(this, BackgroundService.class));
+
+
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Calendar button that leads to CalendarActivity
         showNextActivity = (Button) findViewById(R.id.calendarButton);
@@ -44,8 +48,11 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+
+        //DataExchange.SetNotificationCode(-4);
+
         //Show notification
-        Timer timer = new Timer();
+        /*Timer timer = new Timer();
         NotificationHelper notificationHelper = new NotificationHelper(this);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -54,6 +61,6 @@ public class MenuActivity extends AppCompatActivity {
                         notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
                     }
             }
-        }, 0, 10*1000);
+        }, 0, 10*1000);*/
     }
 }

@@ -1,6 +1,7 @@
 package dais.unive.it.robot.CalendarClass;
 
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import android.content.Context;
@@ -34,31 +35,34 @@ public class EventManager extends AppCompatActivity {
     Timer timer = new Timer();
 
     private List<Event> events;
-
+    private List<Event> app;
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        events
-                .stream()
-                .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
-                        && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-                        && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
-                .forEach(e -> {
-                    DataExchange.AddColorToDischargeQueue(e.getColor().ordinal());
-                    if(!e.getRepeat()) events.remove(e);
-                });
-/*        timer.schedule( new TimerTask() {
+        timer.schedule( new TimerTask() {
             public void run() {
-                events
+                for(int i = 0; i<events.size(); i++){
+                    if(events.get(i).getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2&&
+                            events.get(i).getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR) &&
+                            events.get(i).getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                            ){
+                        DataExchange.AddColorToDischargeQueue(events.get(i).getColor().ordinal());
+                        if(!events.get(i).getRepeat()){
+                            events.remove(i);
+                        }
+                    }
+                }
+                /*events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
                                 && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-                                && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
+                                && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2)
+
                         .forEach(e -> {
-                            DataExchange.SetColorDischargeRequest(e.getColor().ordinal());
+                            DataExchange.AddColorToDischargeQueue(e.getColor().ordinal());
                             if(!e.getRepeat()) events.remove(e);
-                        });
+                        });*/
             }
-        }, 0, 10*1000);*/
+        }, 0, 10*1000);
     }
 
     public static EventManager GetInstance() {
@@ -132,7 +136,6 @@ public class EventManager extends AppCompatActivity {
                 });
         return eventsList;
     }
-
     public int[][] getAllEventsArray() {
         // ordered by hour, day, color
         // exposed as [day0-6, hour, color, 0]

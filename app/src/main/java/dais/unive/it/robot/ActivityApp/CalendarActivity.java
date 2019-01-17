@@ -43,11 +43,10 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
         this.drawCalendarHead(tableLayout, context);
         // TODO Sebastian -  modify tempEventList parameter with real eventList
-        this.drawCalendar(tempEventList, tableLayout,context);
-
+        this.drawCalendar(tempEventList, tableLayout, context);
 
         //Show notification
-        Timer timer = new Timer();
+        /*Timer timer = new Timer();
         NotificationHelper notificationHelper = new NotificationHelper(this);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -56,10 +55,10 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                     notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
                 }
             }
-        }, 0, 10*1000);
+        }, 0, 10*1000);*/
     }
 
-    private void drawCalendarHead(TableLayout inputTableLayout, Context inputContext){
+    private void drawCalendarHead(TableLayout inputTableLayout, Context inputContext) {
         TableRow firstTableRow = new TableRow(inputContext);
         TableRow.LayoutParams firstLayoutParams = new TableRow.LayoutParams();
         firstTableRow.setLayoutParams(firstLayoutParams);
@@ -70,7 +69,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
         String[] tempArray = getResources().getStringArray(R.array.short_days_array);
 
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             Button tempView = new Button(inputContext);
             tempView.setText(tempArray[i]);
             tempView.setTextColor(Color.WHITE);
@@ -82,7 +81,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
 
 
     // Precondition: eventList orderd by hour,min,day,colour (follow the order)
-    private void drawCalendar(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext){
+    private void drawCalendar(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {
         int[] resourceColours = getResources().getIntArray(R.array.items_colors);
         int listSize = eventList.size();
         BitSet bitMap = new BitSet(listSize);
@@ -92,9 +91,9 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         j = 1;
 
         // Now create the dynamic table, each i cycle is a row
-        while (i < listSize){
+        while (i < listSize) {
             // Now we add thisRow events (only add those Events not added until now)
-            if (!bitMap.get(i)){
+            if (!bitMap.get(i)) {
                 Event tempEvent = eventList.get(i);
 
                 // Create a new table row
@@ -121,11 +120,11 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 thisRowList.add(tempEvent);
                 bitMap.set(i);
 
-                while (j < listSize && eventList.get(j).getWhen().get(Calendar.HOUR_OF_DAY)  == thisHour &&
-                        eventList.get(j).getWhen().get(Calendar.MINUTE) == thisMinute){
+                while (j < listSize && eventList.get(j).getWhen().get(Calendar.HOUR_OF_DAY) == thisHour &&
+                        eventList.get(j).getWhen().get(Calendar.MINUTE) == thisMinute) {
                     // Only 1 colour per slot so compare jth day with the last tempList element day
-                    if (!bitMap.get(j) && thisRowList.get(thisRowList.size()-1).getDay() !=
-                            eventList.get(j).getDay()){
+                    if (!bitMap.get(j) && thisRowList.get(thisRowList.size() - 1).getDay() !=
+                            eventList.get(j).getDay()) {
                         thisRowList.add(eventList.get(j));
                         // jth element is set on true
                         bitMap.set(j);
@@ -137,14 +136,12 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 int k, r;
                 k = r = 0;
 
-                while (k < 7){
+                while (k < 7) {
                     Button tempView = new Button(inputContext);
-                    if (r < thisRowList.size() && thisRowList.get(r).getDay().getHierarchy() == k){
-                        //if (r < thisRowList.size() && thisRowList.get(r).getDay() == k) {
+                    if (r < thisRowList.size() && thisRowList.get(r).getDay().getHierarchy() == k) {
                         tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().getHierarchy()]);
                         r++;
-                    }
-                    else
+                    } else
                         tempView.setBackgroundColor(Color.parseColor("#969696"));
                     tableRow.addView(tempView);
                     k++;
@@ -158,21 +155,21 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     }
 
 
-    public void showPopup(View v){
+    public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.add_event_menu);
         popup.show();
     }
 
-    public void goState (View v){
+    public void goState(View v) {
         Intent i = new Intent(this, StatusActivity.class);
         startActivity(i);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.add:
                 //Toast.makeText(this, "add click", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(CalendarActivity.this, AddEvent.class);

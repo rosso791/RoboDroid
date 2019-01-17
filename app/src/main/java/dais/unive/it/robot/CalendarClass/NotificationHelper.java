@@ -31,17 +31,16 @@ public class NotificationHelper {
     /**
      * Create and push the notification
      */
-    public void createNotification(String title, String message)
-    {
+    public void createNotification(String title, String message) {
         /**Creates an explicit intent for an Activity in your app**/
-        Intent resultIntent = new Intent(mContext , StatusActivity.class);
+        Intent resultIntent = new Intent(mContext, StatusActivity.class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
                 0 /* Request code */, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        mBuilder = new NotificationCompat.Builder(mContext,NOTIFICATION_CHANNEL_ID);
+        mBuilder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_ID);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle(title)
                 .setContentText(message)
@@ -51,8 +50,7 @@ public class NotificationHelper {
 
         mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
-        {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", importance);
             notificationChannel.enableLights(true);
@@ -74,9 +72,9 @@ public class NotificationHelper {
         mNotificationManager.notify(0 /* Request Code */, mBuilder.build());
     }
 
-    public void checkNotification(){
-                if (DataExchange.GetNotificationCode() !=0 ){
-                    createNotification("Android", DataExchange.GetNotificationDescription());
-                }
+    public void checkNotification() {
+        if (DataExchange.GetNotificationCode() != 0) {
+            createNotification("Android", DataExchange.GetNotificationDescription());
+        }
     }
 }
