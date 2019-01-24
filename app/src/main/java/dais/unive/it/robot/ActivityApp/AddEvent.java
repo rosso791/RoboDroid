@@ -139,13 +139,13 @@ public class AddEvent extends AppCompatActivity {
                         color = PillColors.blue;
                         break;
                     case 1:
-                        color = PillColors.green;
-                        break;
-                    case 2:
                         color = PillColors.red;
                         break;
-                    case 3:
+                    case 2:
                         color = PillColors.yellow;
+                        break;
+                    case 3:
+                        color = PillColors.green;
                         break;
                     default:
                         color = PillColors.red;
