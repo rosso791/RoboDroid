@@ -7,7 +7,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="unive_logo_jpg">unive Logo jpg</string>
     <string name="lego_logo_jpg">lego logo jpg</string>
-    <string name="start">Inizia</string>
     <string name="calendarButton">Calendario</string>
     <string name="menuText">MENU</string>
     <string name="stateText">Stato</string>
@@ -30,10 +29,11 @@
     <string name="green_ball">Green</string>
     <string name="green_number" />
     <string name="calendario">Calendario</string>
-    <string name="alarm_text">Allarmi</string>
+    <string name="alarm">Allarmi</string>
     <string name="elimante_event_button_text">Elimina</string>
     <string name="eliminate_event_text">Elimina evento</string>
-
+    <string name="calendar_text">Calendario</string>
+    <string name="calendarStateButton">Stato</string>
     <string-array name="days_array">
         <item>Lunedì</item>
         <item>Martedì</item>
@@ -42,6 +42,15 @@
         <item>Venerdì</item>
         <item>Sabato</item>
         <item>Domenica</item>
+    </string-array>
+    <string-array name="short_days_array">
+        <item>L</item>
+        <item>M</item>
+        <item>M</item>
+        <item>G</item>
+        <item>V</item>
+        <item>S</item>
+        <item>D</item>
     </string-array>
     <string-array name="void_days_array">
         <item>-</item>
@@ -52,4 +61,10 @@
         <item>Settimanale</item>
     </string-array>
     <string name="title_activity_eliminate_event">EliminateEvent</string>
+    <string name="redLogo" />
+    <string name="yellowLogo" />
+    <string name="greenLogo" />
+    <string name="blueLogo" />
+    <string name="alarmText" />
+    <string name="textview">TextView</string>
 </resources>

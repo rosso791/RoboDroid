@@ -35,126 +35,147 @@
             app:layout_constraintGuide_begin="120dp"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <ImageView
+            android:id="@+id/redBall"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="76dp"
-            android:text="@string/red_ball"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/redLogo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/addNewEventText"
+            app:srcCompat="@drawable/red" />
 
         <TextView
             android:id="@+id/redNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="84dp"
             android:text="@string/red_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <ImageView
+            android:id="@+id/blueBall"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/blue_ball"
-            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/blueLogo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/redBall"
+            app:srcCompat="@drawable/blue" />
 
         <TextView
             android:id="@+id/blueNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="69dp"
-            android:layout_marginTop="126dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="164dp"
             android:text="@string/blue_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="97dp"
-            android:layout_marginTop="76dp"
-            android:text="@string/yellow_ball"
-            android:textColor="@color/yellow"
-            android:textSize="18sp"
+        <ImageView
+            android:id="@+id/yellowBall"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/yellowLogo"
+            app:layout_constraintEnd_toEndOf="@+id/yellowNumber"
+            app:layout_constraintHorizontal_bias="0.078"
             app:layout_constraintStart_toEndOf="@+id/redNumber"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/addNewEventText"
+            app:srcCompat="@drawable/yellow" />
 
         <TextView
             android:id="@+id/yellowNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="76dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="84dp"
             android:text="@string/yellow_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="22dp"
-            android:text="@string/green_ball"
-            android:textColor="@color/green"
-            app:layout_constraintStart_toEndOf="@+id/addEventGuideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        <ImageView
+            android:id="@+id/greenBall"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/green_ball"
+            app:layout_constraintEnd_toEndOf="@+id/greenNumber"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/blueNumber"
+            app:layout_constraintTop_toBottomOf="@+id/yellowBall"
+            app:srcCompat="@drawable/green" />
 
         <TextView
             android:id="@+id/greenNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="123dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="164dp"
             android:text="@string/green_number"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/addEventGuideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/calendarStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="36dp"
             android:text="@string/calendario"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/_dynamic_alarm" />
+            app:layout_constraintTop_toBottomOf="@+id/alarmButton" />
 
         <TextView
-            android:id="@+id/alarm_text"
+            android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="132dp"
-            android:text="@string/alarm_text"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="174dp"
+            android:text="@string/alarm"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/addEventGuideline"
             app:layout_constraintTop_toBottomOf="@+id/addNewEventText" />
 
-        <ListView
-            android:id="@+id/_dynamic_alarm"
-            android:layout_width="368dp"
-            android:layout_height="143dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+        <TextView
+            android:id="@+id/alarmText"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="52dp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alarm_text" />
+            app:layout_constraintTop_toBottomOf="@+id/alarm"
+            tools:text="@string/alarmText" />
+
+        <Button
+            android:id="@+id/alarmButton"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="8dp"
+            android:text="Risolvi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/alarmText"
+            app:layout_constraintTop_toBottomOf="@+id/alarm" />
+
 
     </android.support.constraint.ConstraintLayout>
 

@@ -17,16 +17,22 @@ import android.widget.Toast;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
+import dais.unive.it.robot.CalendarClass.EventData;
+import dais.unive.it.robot.CalendarClass.NotificationHelper;
+import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.R;
 
 
 public class EliminateEvent extends AppCompatActivity {
     private Button eliminateButton;
     // TODO Sebastian - sample data to eliminate
-    /*EventData tempEventData = new EventData();
-    ArrayList<Event> tempEventList = tempEventData.getEventList();*/
+    EventData tempEventData = new EventData();
+    ArrayList<Event> tempEventList = tempEventData.getEventList();
 
     /*
      eliminatedEventsList: elements checked by the user ready to eliminate
@@ -51,7 +57,20 @@ public class EliminateEvent extends AppCompatActivity {
                 eliminate();
             }
         });
-        //this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
+        this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
+
+
+        //Show notification
+        /*Timer timer = new Timer();
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (DataExchange.GetNotificationCode() !=0 ){
+                    notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
+                }
+            }
+        }, 0, 10*1000);*/
     }
 
     private void drawEliminateTable(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {
@@ -106,11 +125,11 @@ public class EliminateEvent extends AppCompatActivity {
 
             // Add the hour TextView in the first column.
             Button hourView = new Button(inputContext);
-            //int thisHour = tempEvent.getTime().get(Calendar.HOUR_OF_DAY);
-            //int thisMinute = tempEvent.getTime().get(Calendar.MINUTE);
-            //String tempTime = String.format("%02d:%02d", thisHour, thisMinute);
+            int thisHour = tempEvent.getWhen().get(Calendar.HOUR_OF_DAY);
+            int thisMinute = tempEvent.getWhen().get(Calendar.MINUTE);
+            String tempTime = String.format("%02d:%02d", thisHour, thisMinute);
 
-            //hourView.setText(tempTime);
+            hourView.setText(tempTime);
             hourView.setTextColor(Color.WHITE);
             hourView.setBackgroundColor(Color.DKGRAY);
 
@@ -118,14 +137,14 @@ public class EliminateEvent extends AppCompatActivity {
 
             // Add the day TextView in the second column.
             Button dayView = new Button(inputContext);
-            //dayView.setText(resourceDays[tempEvent.getDay() - 1]);
+            dayView.setText(tempEvent.getDay().toString());
             dayView.setTextColor(Color.DKGRAY);
             dayView.setBackgroundColor(Color.WHITE);
             tableRow.addView(dayView);
 
             // Add the colour
             Button colorView = new Button(inputContext);
-            //colorView.setBackgroundColor(resourceColours[tempEvent.getColor() - 1]);
+            colorView.setBackgroundColor(resourceColours[tempEvent.getColor().ordinal()]);
             tableRow.addView(colorView);
 
             // Add CheckBox
@@ -162,18 +181,20 @@ public class EliminateEvent extends AppCompatActivity {
         }
     }
 
-    // The
     public void eliminate(){
         //TODO Sebastian - da implementare
 
         // The cycle is used to see output in console, click on 6: Logcat and search by tag argument "eliminatedEventList"
-        /*for (int i = 0; i < eliminatedEventsList.size(); i++) {
-            String our = Integer.toString(eliminatedEventsList.get(i).getTime().get(Calendar.HOUR_OF_DAY)) +
-                    ":" + Integer.toString(eliminatedEventsList.get(i).getTime().get(Calendar.MINUTE));
-            String day =  getResources().getStringArray(R.array.days_array)[eliminatedEventsList.get(i).getDay() - 1];
-            String color = Integer.toString(eliminatedEventsList.get(i).getColor());
+        for (int i = 0; i < eliminatedEventsList.size(); i++) {
+            String our = Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.HOUR_OF_DAY)) +
+                    ":" + Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.MINUTE));
+            String day =  "" + eliminatedEventsList.get(i).getDay(); // getResources().getStringArray(R.array.days_array)[eliminatedEventsList.get(i).getWhen()];
+            String color = "" + (eliminatedEventsList.get(i).getColor());
             Log.i("eliminatedEventList", "eliminated hour " + our + ", day " + day
                     + ", color " + color);
-        }*/
+        }
+
+        //Intent intent3 = new Intent(CalendarActivity.this, AddEvent.class);
+        startActivity(new Intent(EliminateEvent.this, CalendarActivity.class));
     }
 }

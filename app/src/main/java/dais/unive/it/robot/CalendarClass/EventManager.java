@@ -1,6 +1,7 @@
 package dais.unive.it.robot.CalendarClass;
 
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import android.content.Context;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,20 +35,34 @@ public class EventManager extends AppCompatActivity {
     Timer timer = new Timer();
 
     private List<Event> events;
-
+    private List<Event> app;
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        /*timer.schedule( new TimerTask() {
+        timer.schedule( new TimerTask() {
             public void run() {
-//                // ToDo aggiungere il metodo per rilasciare le pillole dentro il foreach
-                events
+                for(int i = 0; i<events.size(); i++){
+                    if(events.get(i).getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2&&
+                            events.get(i).getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR) &&
+                            events.get(i).getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                            ){
+                        DataExchange.AddColorToDischargeQueue(events.get(i).getColor().ordinal());
+                        if(!events.get(i).getRepeat()){
+                            events.remove(i);
+                        }
+                    }
+                }
+                /*events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
-                            && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
-                            && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) % 7)
-                        .forEach(e -> DataExchange.SetColorDischargeRequest(e.getColorCode()));
+                                && e.getWhen().get(Calendar.MINUTE) == Calendar.getInstance().get(Calendar.MINUTE)
+                                && e.getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2)
+
+                        .forEach(e -> {
+                            DataExchange.AddColorToDischargeQueue(e.getColor().ordinal());
+                            if(!e.getRepeat()) events.remove(e);
+                        });*/
             }
-        }, 0, 10*1000);*/
+        }, 0, 10*1000);
     }
 
     public static EventManager GetInstance() {
@@ -71,6 +87,7 @@ public class EventManager extends AppCompatActivity {
         }
         return events;
     }
+
     private static void serialize(String path) {
         Gson serializer = new Gson();
         try {
@@ -88,36 +105,60 @@ public class EventManager extends AppCompatActivity {
         switch(occurrencyType) {
             case daily:
                 for (WeekDay wday: WeekDay.values()) {
-                    events.add(new Event(wday, color, when, true));
+                    this.events.add(new Event(wday, color, when, true));
                 }
                 break;
             case weekly:
                 if(day == null) throw new Exception("The day isn't specified for a weekly event");
-                events.add(new Event(day, color, when, true));
+                this.events.add(new Event(day, color, when, true));
                 break;
             case onetime:
                 if(day == null) throw new Exception("The day isn't specified for a onetime event");
-                events.add(new Event(day, color, when, false));
+                this.events.add(new Event(day, color, when, false));
                 break;
         }
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
     public void DeleteEvent(Event e) {
-        events.remove(e);
+        this.events.remove(e);
         serialize(Environment.getExternalStorageDirectory() + FILENAME);
     }
 
-
-    public Map<Integer, Map<WeekDay, Event>> getAllEvents() {
-        Map<Integer, Map<WeekDay, Event>> eventsList = new HashMap<>();
+/*    public Map<Integer, Map<WeekDay, List<Event>>> getAllEvents() {
+        Map<Integer, Map<WeekDay, List<Event>>> eventsList = new HashMap<>();
         events
                 .forEach(e -> {
                     int when = e.getWhen().get(Calendar.HOUR) * 60 + e.getWhen().get(Calendar.MINUTE);
                     if(!eventsList.containsKey(when)) eventsList.put(when, new HashMap<>());
-                    eventsList.get(when).put(e.getDay(), e);
+                    if(!eventsList.get(when).containsKey(e.getDay())) eventsList.get(when).put(e.getDay(), new ArrayList<>());
+                    eventsList.get(when).get(e.getDay()).add(e);
                 });
         return eventsList;
     }
+    public int[][] getAllEventsArray() {
+        // ordered by hour, day, color
+        // exposed as [day0-6, hour, color, 0]
+        int[][] result = new int[events.size()][4];
+        events.sort(Comparator.comparingInt(p -> p.getColor().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getDay().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.MINUTE)));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.HOUR_OF_DAY)));
+        int i = 0;
+        events.forEach(e -> {
+            result[i][0] = e.getDay().ordinal();
+            result[i][1] = e.getWhen().get(Calendar.HOUR_OF_DAY) * 60 + e.getWhen().get(Calendar.MINUTE);
+            result[i][2] = e.getColor().ordinal();
+            result[i][3] = 0;
+        });
+        return result;
+    }*/
 
+    public List<Event> getAllEvents() {
+        events.sort(Comparator.comparingInt(p -> p.getColor().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getDay().ordinal()));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.MINUTE)));
+        events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.HOUR_OF_DAY)));
+        return events;
+    }
 }

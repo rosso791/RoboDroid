@@ -19,9 +19,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
+import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
 import dais.unive.it.robot.R;
@@ -35,8 +39,6 @@ public class AddEvent extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
 
 
         //Cancellato perché gestisco con Landscape
@@ -67,7 +69,7 @@ public class AddEvent extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                switch(selectedItemText){
+                switch (selectedItemText) {
                     case "Singola":
                         occurrency = 0;
                         daySpinner.setAdapter(dayAdapter);
@@ -81,7 +83,7 @@ public class AddEvent extends AppCompatActivity {
                         daySpinner.setAdapter(voidDayAdapter);
                         break;
                 }
-                // Notify the selected item text
+                // Notify the selected item texe ToDo eliminare toast
                 Toast.makeText
                         (getApplicationContext(), "Selected : " + selectedItemText,
                                 Toast.LENGTH_SHORT).show();
@@ -97,17 +99,14 @@ public class AddEvent extends AppCompatActivity {
         });
 
 
-
-
-
         // 2018-12-29 Pagnin
         Button saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
 
-        saveButton.setOnClickListener(new View.OnClickListener(){
-
-            public void save(View v){
+            public void save(View v) {
                 PillColors color;
-                Calendar.getInstance().set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
+                Calendar c = Calendar.getInstance();
+                c.set(0, 0, 0, ((TimePicker) findViewById(R.id.timePicker)).getHour(), ((TimePicker) findViewById(R.id.timePicker)).getMinute());
                 WeekDay wd;
                 switch (daySpinner.getSelectedItem().toString()) {
                     case "Lunedì":
@@ -153,13 +152,13 @@ public class AddEvent extends AppCompatActivity {
                 try {
                     switch (occurrencySpinner.getSelectedItemPosition()) {
                         case 0:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, c, wd);
                             break;
                         case 1:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, c, wd);
                             break;
                         case 2:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, Calendar.getInstance(), wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, c, wd);
                             break;
                     }
                 } catch (Exception e) {
@@ -186,28 +185,34 @@ public class AddEvent extends AppCompatActivity {
             private Context context;
 
             private SpinnerAdapter(Context context) {
-                this.context=context;
-                colors= new ArrayList<>();
-                int retrieve []=context.getResources().getIntArray(R.array.items_colors);
-                for (int re:retrieve) {
+                this.context = context;
+                colors = new ArrayList<>();
+                int retrieve[] = context.getResources().getIntArray(R.array.items_colors);
+                for (int re : retrieve) {
                     colors.add(re);
                 }
             }
 
             @Override
-            public int getCount() { return colors.size();}
+            public int getCount() {
+                return colors.size();
+            }
 
             @Override
-            public Object getItem(int arg0) { return colors.get(arg0);}
+            public Object getItem(int arg0) {
+                return colors.get(arg0);
+            }
 
             @Override
-            public long getItemId(int arg0) { return arg0;}
+            public long getItemId(int arg0) {
+                return arg0;
+            }
 
             @Override
             public View getView(int pos, View view, ViewGroup parent) {
-                LayoutInflater inflater=LayoutInflater.from(context);
+                LayoutInflater inflater = LayoutInflater.from(context);
                 view = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, null);
-                TextView txv= view.findViewById(android.R.id.text1);
+                TextView txv = view.findViewById(android.R.id.text1);
                 txv.setBackgroundColor(colors.get(pos));
                 txv.setTextSize(24f);
                 //txv.setText("Text  "+pos);
@@ -217,5 +222,8 @@ public class AddEvent extends AppCompatActivity {
 
         Spinner colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setAdapter(new SpinnerAdapter(this));
+
+
+
     }
 }

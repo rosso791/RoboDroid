@@ -1,9 +1,9 @@
 package dais.unive.it.robot.Automation;
 
-
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 public class DataExchange {
 
@@ -18,43 +18,42 @@ public class DataExchange {
     private static int[] colorQuantityArray = new int[5];
 
     private static Queue<Integer> colorRequestQueue = new LinkedList<>();
-    private static Queue<Integer> notificationQueue = new LinkedList<>();
 
     //Constructor
-    private DataExchange(){}
+    private DataExchange() {
+    }
 
     //Returns singleton instance
-    public static DataExchange GetInstance(){
+    public static DataExchange GetInstance() {
         return dataExchange;
     }
 
-
     //Get the color discharge request
-    public static int GetColorDischargeRequest(){
+    public static int GetColorDischargeRequest() {
         return colorDischargeRequest;
     }
 
     //Set the color discharge request
-    public static void SetColorDischargeRequest(int colorId){
+    public static void SetColorDischargeRequest(int colorId) {
         colorDischargeRequest = colorId;
     }
 
     //Get the color charge request
-    public static int GetColorChargeRequest(){
+    public static int GetColorChargeRequest() {
         return colorChargeRequest;
     }
 
     //Set the color charge request
-    public static void SetColorChargeRequest(int colorId){ colorChargeRequest = colorId; }
+    public static void SetColorChargeRequest(int colorId) {
+        colorChargeRequest = colorId;
+    }
 
     //Peek color from queue
-    public static int PeekColorFromDischargeQueue(){
+    public static int PeekColorFromDischargeQueue() {
         int colorToDischarge;
         if (colorRequestQueue.size() > 0) {
             colorToDischarge = colorRequestQueue.peek();
-        }
-        else
-        {
+        } else {
             colorToDischarge = 0;
         }
         SetColorDischargeRequest(colorToDischarge);
@@ -62,46 +61,52 @@ public class DataExchange {
     }
 
     //Add color to queue
-    public static void AddColorToDischargeQueue( int colorId){
-        if (colorId > 0){ colorRequestQueue.add(colorId);}
+    public static void AddColorToDischargeQueue(int colorId) {
+        if (colorId > 0) {
+            colorRequestQueue.add(colorId);
+        }
     }
 
     //Remove color from queue
-    public static void RemoveColorFromDischargeQueue(){
-        colorRequestQueue.remove();
+    public static void RemoveColorFromDischargeQueue() {
+        if (colorRequestQueue.size() > 0)
+            colorRequestQueue.remove();
+        System.out.println(".......................................Removed");
     }
 
     //Get all color request queue
-    public static Queue<Integer> GetDischargeQueue(){
+    public static Queue<Integer> GetDischargeQueue() {
         return colorRequestQueue;
     }
 
 
     //Get the phase value
-    public static int GetActivePhase(){
+    public static int GetActivePhase() {
         return activePhase;
     }
 
     //Set the phase value
-    public static void SetActivePhase(int activePhaseValue){ activePhase = activePhaseValue; }
+    public static void SetActivePhase(int activePhaseValue) {
+        activePhase = activePhaseValue;
+    }
 
     //Get notification code
-    public static int GetNotificationCode(){
+    public static int GetNotificationCode() {
         return notificationCode;
     }
 
     //Set notification code
-    public static void SetNotificationCode(int codeValue){
+    public static void SetNotificationCode(int codeValue) {
         notificationCode = codeValue;
     }
 
     //Get alive counter
-    public static int GetAliveCounter(){
+    public static int GetAliveCounter() {
         return aliveCounter;
     }
 
     //Increase alive counter (rolling counter)
-    public static void IncreaseAliveCounter(){
+    public static void IncreaseAliveCounter() {
         if (aliveCounter > Integer.MAX_VALUE)
             aliveCounter = Integer.MIN_VALUE;
         else
@@ -109,37 +114,51 @@ public class DataExchange {
     }
 
     //Get color quantity by id
-    public static int GetColorQuantity(int colorId){
+    public static int GetColorQuantity(int colorId) {
         return colorQuantityArray[colorId];
     }
 
+    //Set color quantity on n units by id
+    public static void SetColorQuantity(int colorId, int units) {
+        colorQuantityArray[colorId] = units;
+    }
+
     //Increase color quantity on n units by id
-    public static void IncreaseColorQuantity(int colorId, int units){
+    public static void IncreaseColorQuantity(int colorId, int units) {
         colorQuantityArray[colorId] += units;
     }
 
     //Decrease color quantity on n units by id
-    public static void DecreaseColorQuantity(int colorId, int units){
+    public static void DecreaseColorQuantity(int colorId, int units) {
         colorQuantityArray[colorId] -= units;
     }
 
-
+    //Get entire array of color quantities
+    public static int[] GetColorQuantityArray() {
+        return colorQuantityArray;
+    }
 
     //Decode color (just visualization)
-    public static String GetColorDescription(int colorId){
+    public static String GetColorDescription(int colorId) {
         String colorName;
         switch (colorId) {
-            case 0: colorName = "None";
+            case 0:
+                colorName = "None";
                 break;
-            case 1: colorName = "Red";
+            case 1:
+                colorName = "Red";
                 break;
-            case 2: colorName = "Blue";
+            case 2:
+                colorName = "Blue";
                 break;
-            case 3: colorName = "Green";
+            case 3:
+                colorName = "Green";
                 break;
-            case 4: colorName = "Yellow";
+            case 4:
+                colorName = "Yellow";
                 break;
-            default: colorName = "None";
+            default:
+                colorName = "None";
                 break;
         }
 
@@ -150,57 +169,77 @@ public class DataExchange {
     //Negative ids reserved for alarms
     //Zero id reserved for no-notification
     //Positive ids reserved for information
-    public static String GetNotificationDescription(){
+    public static String GetNotificationDescription() {
         String notificationDescription;
-        switch (notificationCode){
-            case -9: notificationDescription = "Spare Alarm";
+        switch (notificationCode) {
+            case -9:
+                notificationDescription = "Max Red quantity in storage";
                 break;
-            case -8: notificationDescription = "Spare Alarm";
+            case -8:
+                notificationDescription = "Max Yellow quantity in storage";
                 break;
-            case -7: notificationDescription = "Spare Alarm";
+            case -7:
+                notificationDescription = "Max Green quantity in storage";
                 break;
-            case -6: notificationDescription = "Spare Alarm";
+            case -6:
+                notificationDescription = "Max Blue quantity in storage";
                 break;
-            case -5: notificationDescription = "Spare Alarm";
+            case -5:
+                notificationDescription = "Memory Check failed. Please restart EV3 first and then the Application.";
                 break;
-            case -4: notificationDescription = "Color not Present\r\nPlease fill with required color";
+            case -4:
+                notificationDescription = "Color not Present\r\nPlease fill with required color";
                 break;
-            case -3: notificationDescription = "Pick Up Timeout\r\nPlease remove object from Pick Up zone.";
+            case -3:
+                notificationDescription = "Pick Up Timeout\r\nPlease remove object from Pick Up zone.";
                 break;
-            case -2: notificationDescription = "Discharge Stuck\r\nObject not in expected position during discharging phase.";
+            case -2:
+                notificationDescription = "Discharge Stuck\r\nObject not in expected position during discharging phase.";
                 break;
-            case -1: notificationDescription = "Charge Stuck\r\nObject not in expected position during charging phase.";
+            case -1:
+                notificationDescription = "Charge Stuck\r\nObject not in expected position during charging phase.";
                 break;
-            case 0: notificationDescription = "";
+            case 0:
+                notificationDescription = "";
                 break;
-            case 1: notificationDescription = "Pick Up Ready";
+            case 2:
+                notificationDescription = "Pick Up Ready";
                 break;
-            case 2: notificationDescription = "Charge Completed";
+            case 1:
+                notificationDescription = "Charge Completed";
                 break;
-            case 3: notificationDescription = "Discharge Completed";
+            case 3:
+                notificationDescription = "Discharge Completed";
                 break;
-            case 4: notificationDescription = "Spare";
+            case 4:
+                notificationDescription = "Spare";
                 break;
-            case 5: notificationDescription = "Spare";
+            case 5:
+                notificationDescription = "Spare";
                 break;
-            case 6: notificationDescription = "Spare";
+            case 6:
+                notificationDescription = "Spare";
                 break;
-            case 7: notificationDescription = "Spare";
+            case 7:
+                notificationDescription = "Spare";
                 break;
-            case 8: notificationDescription = "Spare";
+            case 8:
+                notificationDescription = "Spare";
                 break;
-            case 9: notificationDescription = "Spare";
+            case 9:
+                notificationDescription = "Spare";
                 break;
-            default: notificationDescription = "Unhandled Notification";
+            default:
+                notificationDescription = "Unhandled Notification";
                 break;
         }
         return notificationDescription;
     }
 
     //Return phase description
-    public static String GetActivePhaseDescription(){
+    public static String GetActivePhaseDescription() {
         String activePhaseDescription;
-        switch (activePhase){
+        switch (activePhase) {
             case 0:
                 activePhaseDescription = "STAND BY";
                 break;
@@ -219,4 +258,3 @@ public class DataExchange {
         return activePhaseDescription;
     }
 }
-
