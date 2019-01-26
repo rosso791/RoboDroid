@@ -23,6 +23,7 @@ import java.util.TimerTask;
 import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventData;
+import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.R;
@@ -30,11 +31,11 @@ import dais.unive.it.robot.R;
 
 public class EliminateEvent extends AppCompatActivity {
     private Button eliminateButton;
-    // TODO Sebastian - sample data to eliminate
+
     EventData tempEventData = new EventData();
     ArrayList<Event> tempEventList = tempEventData.getEventList();
 
-    /*
+    /**
      eliminatedEventsList: elements checked by the user ready to eliminate
      checkBoxIdList: list of Ids used by listeners to find selected items
      checkBoxList: list of checkBoxes used to select all boxes on the first row Button listener
@@ -53,9 +54,7 @@ public class EliminateEvent extends AppCompatActivity {
 
         eliminateButton = findViewById(R.id.eliminate_button);
         eliminateButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View w){
-                eliminate();
-            }
+            public void onClick(View w) {eliminate();}
         });
         this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
 
@@ -72,6 +71,11 @@ public class EliminateEvent extends AppCompatActivity {
             }
         }, 0, 10*1000);*/
     }
+    //TODO Sebastian - da capire questo:
+    /*
+    perché 'settimanale' si comporta come 'giornaliera' (e viceversa) e perché se prima seleziono
+    tutti i giorni e dopo deselziono qualcuno si cancellano comunque tutti i giorni
+    */
 
     private void drawEliminateTable(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {
         // Call some resources
@@ -182,19 +186,14 @@ public class EliminateEvent extends AppCompatActivity {
     }
 
     public void eliminate(){
-        //TODO Sebastian - da implementare
 
-        // The cycle is used to see output in console, click on 6: Logcat and search by tag argument "eliminatedEventList"
         for (int i = 0; i < eliminatedEventsList.size(); i++) {
-            String our = Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.HOUR_OF_DAY)) +
-                    ":" + Integer.toString(eliminatedEventsList.get(i).getWhen().get(Calendar.MINUTE));
-            String day =  "" + eliminatedEventsList.get(i).getDay(); // getResources().getStringArray(R.array.days_array)[eliminatedEventsList.get(i).getWhen()];
-            String color = "" + (eliminatedEventsList.get(i).getColor());
-            Log.i("eliminatedEventList", "eliminated hour " + our + ", day " + day
-                    + ", color " + color);
+            try {
+                EventManager.GetInstance().DeleteEvent(eliminatedEventsList.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-        //Intent intent3 = new Intent(CalendarActivity.this, AddEvent.class);
         startActivity(new Intent(EliminateEvent.this, CalendarActivity.class));
     }
 }
