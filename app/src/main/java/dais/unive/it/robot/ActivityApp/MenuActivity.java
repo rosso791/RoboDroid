@@ -4,26 +4,49 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dais.unive.it.robot.Automation.AutomationTask;
 import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.R;
+import it.unive.dais.legodroid.lib.EV3;
+import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
+import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class MenuActivity extends AppCompatActivity {
     private Button showNextActivity;
-
+    private static final String TAG = Prelude.ReTAG("MainActivity");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
+        DataExchange.GetInstance();
         setContentView(R.layout.activity_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         startService(new Intent(this, BackgroundService.class));
+
+        /*DataExchange.GetInstance();
+        AutomationTask.GetInstance();
+
+        try {
+            // connect to EV3 via bluetooth
+            EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());    // replace with your own brick name
+            //Prelude.trap(() -> ev3.run(this::legomain));
+            Prelude.trap(() -> ev3.run(AutomationTask::StartTimer));
+
+
+        } catch (IOException e) {
+            Log.e(TAG, "fatal error: cannot connect to EV3");
+            e.printStackTrace();
+        }*/
+
 
 
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

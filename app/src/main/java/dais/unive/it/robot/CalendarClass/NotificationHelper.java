@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
@@ -24,6 +25,7 @@ public class NotificationHelper {
     private NotificationCompat.Builder mBuilder;
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
 
+
     public NotificationHelper(Context context) {
         mContext = context;
     }
@@ -32,7 +34,8 @@ public class NotificationHelper {
      * Create and push the notification
      */
     public void createNotification(String title, String message) {
-        /**Creates an explicit intent for an Activity in your app**/
+
+
         Intent resultIntent = new Intent(mContext, StatusActivity.class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -73,7 +76,8 @@ public class NotificationHelper {
     }
 
     public void checkNotification() {
-        if (DataExchange.GetNotificationCode() != 0) {
+        DataExchange.GetInstance();
+        if (DataExchange.GetNotificationCode() != 0 && DataExchange.GetNotificationCode() != 1000) {
             createNotification("Android", DataExchange.GetNotificationDescription());
         }
     }

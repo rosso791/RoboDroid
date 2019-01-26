@@ -27,12 +27,12 @@ public class StatusActivity extends AppCompatActivity {
     private Button showNextActivity;
     private TextView textView;
     private ListView listView;
-    private DataExchange ex = DataExchange.GetInstance();
     private NotificationManager notificationManager;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataExchange.GetInstance();
         setContentView(R.layout.activity_status);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -64,7 +64,7 @@ public class StatusActivity extends AppCompatActivity {
         alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataExchange.SetNotificationCode(0);
+                DataExchange.SetNotificationCode(1000);
                 notificationManager.cancel(0);
                 textView.setText("Non ci sono problemi");
                 alarmButton.setEnabled(false);

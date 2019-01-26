@@ -28,6 +28,11 @@
             android:name=".ActivityApp.EliminateEvent"
             android:label="@string/title_activity_eliminate_event"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".ActivityApp.BackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

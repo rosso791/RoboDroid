@@ -53,96 +53,97 @@ public class AutomationTask {
         timerTask = new TimerTask(){
             public void run() {
                 handler.post(new Runnable() {
-                                 public void run() {
-                                     gApi = api;
-                                     try {
-                                         if (memCheckCounter <= 2){
-                                             if (stepCounter == 48){
-                                                 DataExchange.SetNotificationCode(-5);
-                                                 StopTimer();
-                                             }
-                                             stepCounter++;
-                                             ev3DataHandler.sendDataToMailBox("MemAddressing", "Check");
-                                             gVIndex = stepCounter * 4;
-                                             int x = ev3DataHandler.getGlobalVariableIntValue(gVIndex).get();
-                                             System.out.println("(" + gVIndex + ") " + x + " (" + memCheckCounter + ")");
-                                             if (x == 111) {
-                                                 gVNotification = gVIndex;
-                                                 memCheckCounter++;
-                                             }
+                    public void run() {
 
-                                             if (x == 9999) {
-                                                 gVQtyColor = gVIndex;
-                                                 memCheckCounter ++;
-                                             }
+                        gApi = api;
+                        try {
+                            if (memCheckCounter <= 2){
+                                if (stepCounter == 48){
+                                    DataExchange.SetNotificationCode(-5);
+                                    StopTimer();
+                                }
+                                stepCounter++;
+                                ev3DataHandler.sendDataToMailBox("MemAddressing", "Check");
+                                gVIndex = stepCounter * 4;
+                                int x = ev3DataHandler.getGlobalVariableIntValue(gVIndex).get();
+                                System.out.println("(" + gVIndex + ") " + x + " (" + memCheckCounter + ")");
+                                if (x == 111) {
+                                    gVNotification = gVIndex;
+                                    memCheckCounter++;
+                                }
 
-                                             if (memCheckCounter == 2) {
-                                                 ev3DataHandler.sendDataToMailBox("MemAddressing", "MemScanCompleted");
-                                                 memCheckCounter++;
-                                                 System.out.println("Done!");
-                                             }
+                                if (x == 9999) {
+                                    gVQtyColor = gVIndex;
+                                    memCheckCounter ++;
+                                }
 
-                                         }else {
+                                if (memCheckCounter == 2) {
+                                    ev3DataHandler.sendDataToMailBox("MemAddressing", "MemScanCompleted");
+                                    memCheckCounter++;
+                                    System.out.println("Done!");
+                                }
 
-                                             if (DataExchange.GetNotificationCode() == 1000)
-                                                 ev3DataHandler.sendDataToMailBox("Reset", "ResetNotification");
+                            }else {
 
-                                             notification = ev3DataHandler.getGlobalVariableIntValue(gVNotification).get();
-                                             color = ev3DataHandler.getGlobalVariableIntValue(gVQtyColor).get();
+                                if (DataExchange.GetNotificationCode() == 1000)
+                                    ev3DataHandler.sendDataToMailBox("Reset", "ResetNotification");
 
-                                             qtyRed=((color%10000)-(color%1000))/1000;
-                                             qtyBlue=((color%10)-(color%1))/1;
-                                             qtyGreen=((color%100)-(color%10))/10;
-                                             qtyYellow=((color%1000)-(color%100))/100;
+                                notification = ev3DataHandler.getGlobalVariableIntValue(gVNotification).get();
+                                color = ev3DataHandler.getGlobalVariableIntValue(gVQtyColor).get();
 
-                                             DataExchange.SetNotificationCode(notification);
-                                             DataExchange.SetColorQuantity(1, qtyRed);
-                                             DataExchange.SetColorQuantity(2, qtyBlue);
-                                             DataExchange.SetColorQuantity(3, qtyGreen);
-                                             DataExchange.SetColorQuantity(4, qtyYellow);
+                                qtyRed=((color%10000)-(color%1000))/1000;
+                                qtyBlue=((color%10)-(color%1))/1;
+                                qtyGreen=((color%100)-(color%10))/10;
+                                qtyYellow=((color%1000)-(color%100))/100;
 
-                                             if ((notification == 0) && pickUpReady) {
-                                                 pickUpReady = false;
-                                                 pickUpDone = true;
-                                                 DataExchange.RemoveColorFromDischargeQueue();
-                                             }
+                                DataExchange.SetNotificationCode(notification);
+                                DataExchange.SetColorQuantity(1, qtyRed);
+                                DataExchange.SetColorQuantity(2, qtyBlue);
+                                DataExchange.SetColorQuantity(3, qtyGreen);
+                                DataExchange.SetColorQuantity(4, qtyYellow);
 
-                                             if (notification == 2) {
-                                                 pickUpReady = true;
-                                                 pickUpDone = false;
-                                                 ev3DataHandler.sendDataToMailBox("ColorRequest", "CIAO");
-                                             }
+                                if ((notification == 0) && pickUpReady) {
+                                    pickUpReady = false;
+                                    pickUpDone = true;
+                                    DataExchange.RemoveColorFromDischargeQueue();
+                                }
 
-                                             if (pickUpDone) {
-                                                 switch (DataExchange.PeekColorFromDischargeQueue()) {
-                                                     case 1:
-                                                         ev3DataHandler.sendDataToMailBox("ColorRequest", "Red");
-                                                         pickUpDone = false;
-                                                         break;
-                                                     case 2:
-                                                         ev3DataHandler.sendDataToMailBox("ColorRequest", "Blue");
-                                                         pickUpDone = false;
-                                                         break;
-                                                     case 3:
-                                                         ev3DataHandler.sendDataToMailBox("ColorRequest", "Green");
-                                                         pickUpDone = false;
-                                                         break;
-                                                     case 4:
-                                                         ev3DataHandler.sendDataToMailBox("ColorRequest", "Yellow");
-                                                         pickUpDone = false;
-                                                         break;
-                                                     default:
-                                                         ev3DataHandler.sendDataToMailBox("ColorRequest", "CIAO");
-                                                         break;
-                                                 }
-                                             }
+                                if (notification == 2) {
+                                    pickUpReady = true;
+                                    pickUpDone = false;
+                                    ev3DataHandler.sendDataToMailBox("ColorRequest", "CIAO");
+                                }
 
-                                         }
-                                     } catch (IOException | InterruptedException | ExecutionException  e) {
-                                         e.printStackTrace();
-                                     }
+                                if (pickUpDone) {
+                                    switch (DataExchange.PeekColorFromDischargeQueue()) {
+                                        case 1:
+                                            ev3DataHandler.sendDataToMailBox("ColorRequest", "Red");
+                                            pickUpDone = false;
+                                            break;
+                                        case 0:
+                                            ev3DataHandler.sendDataToMailBox("ColorRequest", "Blue");
+                                            pickUpDone = false;
+                                            break;
+                                        case 3:
+                                            ev3DataHandler.sendDataToMailBox("ColorRequest", "Green");
+                                            pickUpDone = false;
+                                            break;
+                                        case 2:
+                                            ev3DataHandler.sendDataToMailBox("ColorRequest", "Yellow");
+                                            pickUpDone = false;
+                                            break;
+                                        default:
+                                            ev3DataHandler.sendDataToMailBox("ColorRequest", "CIAO");
+                                            break;
+                                    }
+                                }
 
-                                 }
+                            }
+                        } catch (IOException | InterruptedException | ExecutionException  e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                 });
             }
         };

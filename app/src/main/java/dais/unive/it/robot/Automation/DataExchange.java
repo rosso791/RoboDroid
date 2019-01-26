@@ -142,19 +142,19 @@ public class DataExchange {
     public static String GetColorDescription(int colorId) {
         String colorName;
         switch (colorId) {
-            case 0:
+            case 4:
                 colorName = "None";
                 break;
             case 1:
                 colorName = "Red";
                 break;
-            case 2:
+            case 0:
                 colorName = "Blue";
                 break;
             case 3:
                 colorName = "Green";
                 break;
-            case 4:
+            case 2:
                 colorName = "Yellow";
                 break;
             default:

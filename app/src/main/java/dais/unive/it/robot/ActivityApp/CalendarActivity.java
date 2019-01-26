@@ -32,7 +32,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
+        DataExchange.GetInstance();
         // TODO Sebastian - sample data to eliminate
         EventData tempData = new EventData();
         ArrayList<Event> tempEventList = tempData.getEventList();
@@ -139,7 +139,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 while (k < 7) {
                     Button tempView = new Button(inputContext);
                     if (r < thisRowList.size() && thisRowList.get(r).getDay().getHierarchy() == k) {
-                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().getHierarchy()]);
+                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().ordinal()]);
                         r++;
                     } else
                         tempView.setBackgroundColor(Color.parseColor("#969696"));
