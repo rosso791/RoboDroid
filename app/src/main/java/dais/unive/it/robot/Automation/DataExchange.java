@@ -1,9 +1,7 @@
 package dais.unive.it.robot.Automation;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 public class DataExchange {
 

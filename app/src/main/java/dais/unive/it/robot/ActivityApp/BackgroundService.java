@@ -1,43 +1,34 @@
 package dais.unive.it.robot.ActivityApp;
 
-import android.app.PendingIntent;
+
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.provider.ContactsContract;
-import android.support.v4.app.NotificationCompat;
+
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Menu;
-import android.widget.Toast;
+
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import dais.unive.it.robot.Automation.AutomationTask;
 import dais.unive.it.robot.Automation.DataExchange;
-import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.CalendarClass.NotificationHelper;
-import dais.unive.it.robot.R;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class BackgroundService extends Service {
 
-    private static final int NOTIF_ID = 1;
-    private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private static final String TAG = "MyActivity";
     public Context context = this;
-    private Timer timer;
-    Handler handler=new Handler();
     EV3 ev3;
-    NotificationHelper notificationHelper = new NotificationHelper(this);
+    public static Service pa;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -52,6 +43,11 @@ public class BackgroundService extends Service {
 
         return super.onStartCommand(intent, flags, startId);
     }
+
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 
     private void startForeground() {
         /*Intent notificationIntent = new Intent(this, MenuActivity.class);
@@ -73,7 +69,8 @@ public class BackgroundService extends Service {
         AutomationTask.GetInstance();
         try {
             // connect to EV3 via bluetooth
-            ev3 = new EV3(new BluetoothConnection("EV3").connect());    // replace with your own brick name
+            ev3 = new EV3(new BluetoothConnection("EV3").connect());
+            // replace with your own brick name
             Prelude.trap(() -> ev3.run(AutomationTask::StartTimer));
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -84,13 +81,15 @@ public class BackgroundService extends Service {
                 }
             }, 0, 60*1000);
 
-        } catch (IOException e) {
+        } catch(IOException e ){
+            Intent dialogIntent = new Intent(this, AlertActivity.class);
+            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(dialogIntent);
             Log.e(TAG, "fatal error: cannot connect to EV3");
             e.printStackTrace();
         }
 
-        //AutomationTask.StartTimer();
-        //handler.post(updateTextRunnable);
+
 
 
 

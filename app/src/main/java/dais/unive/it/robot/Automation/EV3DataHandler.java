@@ -3,7 +3,6 @@ package dais.unive.it.robot.Automation;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import it.unive.dais.legodroid.lib.EV3;

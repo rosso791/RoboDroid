@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +16,10 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
-import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.R;
 import dais.unive.it.robot.CalendarClass.EventData;
 
@@ -45,17 +42,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         // TODO Sebastian -  modify tempEventList parameter with real eventList
         this.drawCalendar(tempEventList, tableLayout, context);
 
-        //Show notification
-        /*Timer timer = new Timer();
-        NotificationHelper notificationHelper = new NotificationHelper(this);
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (DataExchange.GetNotificationCode() !=0 ){
-                    notificationHelper.createNotification("Android", DataExchange.GetNotificationDescription());
-                }
-            }
-        }, 0, 10*1000);*/
+
     }
 
     private void drawCalendarHead(TableLayout inputTableLayout, Context inputContext) {
@@ -171,7 +158,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
-                //Toast.makeText(this, "add click", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(CalendarActivity.this, AddEvent.class);
                 startActivity(intent2);
                 //TODO Sebastian - modifica 01a: aggiunto break
@@ -180,7 +166,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 //TODO Sebastian - modifica 01a: aggiunto questa partea, break incluso
                 Intent intent3 = new Intent(CalendarActivity.this, EliminateEvent.class);
                 startActivity(intent3);
-                //Toast.makeText(this, "delete click", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;

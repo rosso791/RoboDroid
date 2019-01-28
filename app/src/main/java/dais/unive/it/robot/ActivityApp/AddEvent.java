@@ -83,6 +83,7 @@ public class AddEvent extends AppCompatActivity {
                         daySpinner.setAdapter(voidDayAdapter);
                         break;
                 }
+                /*
                 // Notify the selected item texe ToDo eliminare toast
                 Toast.makeText
                         (getApplicationContext(), "Selected : " + selectedItemText,
@@ -90,6 +91,7 @@ public class AddEvent extends AppCompatActivity {
                 Toast.makeText
                         (getApplicationContext(), "number : " + Integer.toString(occurrency),
                                 Toast.LENGTH_SHORT).show();
+                 */
             }
 
             @Override
@@ -188,9 +190,14 @@ public class AddEvent extends AppCompatActivity {
                 this.context = context;
                 colors = new ArrayList<>();
                 int retrieve[] = context.getResources().getIntArray(R.array.items_colors);
-                for (int re : retrieve) {
+                for (int i = 1; i < retrieve.length; i++)
+                    colors.add(retrieve[i]);
+
+                //old cycle
+                /*
+                for (int re : retrieve)
                     colors.add(re);
-                }
+                */
             }
 
             @Override

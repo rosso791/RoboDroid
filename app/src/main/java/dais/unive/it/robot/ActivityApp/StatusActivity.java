@@ -5,23 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.internal.bind.DateTypeAdapter;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dais.unive.it.robot.Automation.DataExchange;
-import dais.unive.it.robot.CalendarClass.NotificationHelper;
+
 import dais.unive.it.robot.R;
 
 public class StatusActivity extends AppCompatActivity {
@@ -36,6 +30,7 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DataExchange.GetInstance();
+
         setContentView(R.layout.activity_status);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

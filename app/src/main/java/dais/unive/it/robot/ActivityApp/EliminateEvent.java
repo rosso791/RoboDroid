@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +44,7 @@ public class EliminateEvent extends AppCompatActivity {
     ArrayList<Event> eliminatedEventsList = new ArrayList<>();
     ArrayList<Integer> checkBoxIdList = new ArrayList<>();
     ArrayList<CheckBox> checkBoxList = new ArrayList<>();
+    ArrayList<Boolean> booleanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +53,19 @@ public class EliminateEvent extends AppCompatActivity {
 
         TableLayout eliminateTableLayout = findViewById(R.id.eliminate_event_table_layout);
         Context eliminateContext = getApplicationContext();
-
+        for (int i = 0; i < tempEventList.size(); i++)
+            booleanList.add(false);
         eliminateButton = findViewById(R.id.eliminate_button);
         eliminateButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View w) {eliminate();}
         });
-        this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
 
+        //todo: eliminate
+        for (int i = 0; i < tempEventList.size(); i++){
+            Log.i("elements", "color: " + tempEventList.get(i).getColor());
+        }
+
+        this.drawEliminateTable(tempEventList, eliminateTableLayout, eliminateContext);
 
         //Show notification
         /*Timer timer = new Timer();
@@ -71,11 +79,6 @@ public class EliminateEvent extends AppCompatActivity {
             }
         }, 0, 10*1000);*/
     }
-    //TODO Sebastian - da capire questo:
-    /*
-    perché 'settimanale' si comporta come 'giornaliera' (e viceversa) e perché se prima seleziono
-    tutti i giorni e dopo deselziono qualcuno si cancellano comunque tutti i giorni
-    */
 
     private void drawEliminateTable(ArrayList<Event> eventList, TableLayout inputTableLayout, Context inputContext) {
         // Call some resources
@@ -104,11 +107,20 @@ public class EliminateEvent extends AppCompatActivity {
         selectAllCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                /*
                 eliminatedEventsList.clear();
+
                 for (int i = 0; i < checkBoxList.size(); i++){
                     checkBoxList.get(i).setChecked(isChecked);
                     if (isChecked)
                         eliminatedEventsList.add(eventList.get(i));
+                }
+                */
+                //eliminatedEventsList.clear();
+                for (int i = 0; i < checkBoxList.size(); i++){
+                    checkBoxList.get(i).setChecked(isChecked);
+                    booleanList.set(i, isChecked); //setto anche nella lista di boolean, in teoria dovrebbe bastare il settaggio nella checkBoxList
+                    //Log.i("elements", "to cancel: " + Integer.toString(i) + " - " + booleanList.get(i));
                 }
             }
         });
@@ -159,6 +171,22 @@ public class EliminateEvent extends AppCompatActivity {
             tempCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int thisId = buttonView.getId();
+
+                    for (int i = 0; i < checkBoxIdList.size(); i++){
+                        if (thisId == checkBoxIdList.get(i)) {
+                            booleanList.set(i, isChecked);
+                            //Log.i("elements", "item: " + Integer.toString(i) + ", color " + tempEventList.get(i).getColor() +" set to " + booleanList.get(i));
+                        }
+                    }
+                }
+            });
+
+
+            /*
+            tempCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int position = 0;
                     int i = 0;
                     while (i < checkBoxIdList.size()) {
@@ -168,16 +196,23 @@ public class EliminateEvent extends AppCompatActivity {
                         }
                         i++;
                     }
-                    if (isChecked)
-                        eliminatedEventsList.add(eventList.get(position));
 
-                    else
-                        eliminatedEventsList.remove(eventList.get(position));
+                    //if (isChecked)
+                      //  eliminatedEventsList.add(eventList.get(position));
+
+                    //else
+                      //  eliminatedEventsList.remove(eventList.get(position));
+
+
+                    //booleanList.set(position, isChecked);
+
                     //Log.i("drawtag", "elemento numero: " + Integer.toString(position));
                     //String msg = "You have " + (isChecked ? "checked" : "unchecked") + " this Check it Checkbox.";
                     //Toast.makeText(inputContext, msg, Toast.LENGTH_SHORT).show();
                 }
             });
+
+            */
             tableRow.addView(tempCheckBox);
 
             // Add the ith row to the table layout
@@ -186,7 +221,7 @@ public class EliminateEvent extends AppCompatActivity {
     }
 
     public void eliminate(){
-
+        /*
         for (int i = 0; i < eliminatedEventsList.size(); i++) {
             try {
                 EventManager.GetInstance().DeleteEvent(eliminatedEventsList.get(i));
@@ -194,6 +229,16 @@ public class EliminateEvent extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        */
+        //Log.i("elements", "tempEventList size: " + tempEventList.size());
+
+        for (int i = booleanList.size() - 1; i >= 0 ; i--){
+            if (booleanList.get(i)) {
+                //Log.i("elements", "cancelled: " + Integer.toString(i) + " - " + tempEventList.get(i).getColor());
+                EventManager.GetInstance().DeleteEvent(tempEventList.get(i));
+            }
+        }
+
         startActivity(new Intent(EliminateEvent.this, CalendarActivity.class));
     }
 }
