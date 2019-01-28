@@ -10,11 +10,14 @@
     <item name="green" type="color">#11ff00</item>
     <item name="red" type="color">#FFFF4444</item>
     <item name="yellow" type="color">#ffffbb33</item>
+    <item name="empty" type ="color"></item>
 
     <integer-array name="items_colors">
-        <item>@color/blue</item>
+        <item>@color/empty</item>
         <item>@color/red</item>
-        <item>@color/yellow</item>
+        <item>@color/blue</item>
         <item>@color/green</item>
+        <item>@color/yellow</item>
+
     </integer-array>
 </resources>

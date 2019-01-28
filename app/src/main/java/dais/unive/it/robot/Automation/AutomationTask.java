@@ -120,7 +120,7 @@ public class AutomationTask {
                                             ev3DataHandler.sendDataToMailBox("ColorRequest", "Red");
                                             pickUpDone = false;
                                             break;
-                                        case 0:
+                                        case 2:
                                             ev3DataHandler.sendDataToMailBox("ColorRequest", "Blue");
                                             pickUpDone = false;
                                             break;
@@ -128,7 +128,7 @@ public class AutomationTask {
                                             ev3DataHandler.sendDataToMailBox("ColorRequest", "Green");
                                             pickUpDone = false;
                                             break;
-                                        case 2:
+                                        case 4:
                                             ev3DataHandler.sendDataToMailBox("ColorRequest", "Yellow");
                                             pickUpDone = false;
                                             break;

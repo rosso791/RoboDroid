@@ -82,7 +82,7 @@ public class BackgroundService extends Service {
                     notificationHelper.checkNotification();
                     EventManager.GetInstance();
                 }
-            }, 0, 10*1000);
+            }, 0, 60*1000);
 
         } catch (IOException e) {
             Log.e(TAG, "fatal error: cannot connect to EV3");

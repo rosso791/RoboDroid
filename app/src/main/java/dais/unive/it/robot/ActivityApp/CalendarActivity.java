@@ -139,7 +139,7 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
                 while (k < 7) {
                     Button tempView = new Button(inputContext);
                     if (r < thisRowList.size() && thisRowList.get(r).getDay().getHierarchy() == k) {
-                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().ordinal()]);
+                        tempView.setBackgroundColor(resourceColours[thisRowList.get(r).getColor().getHierarchy()]);
                         r++;
                     } else
                         tempView.setBackgroundColor(Color.parseColor("#969696"));

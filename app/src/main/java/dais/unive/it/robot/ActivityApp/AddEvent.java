@@ -134,13 +134,13 @@ public class AddEvent extends AppCompatActivity {
                         wd = null;
                 }
                 switch (((Spinner) findViewById(R.id.colorSpinner)).getSelectedItemPosition()) {
-                    case 0:
+                    case 2:
                         color = PillColors.blue;
                         break;
                     case 1:
                         color = PillColors.red;
                         break;
-                    case 2:
+                    case 4:
                         color = PillColors.yellow;
                         break;
                     case 3:
@@ -155,10 +155,10 @@ public class AddEvent extends AppCompatActivity {
                             EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.onetime, c, wd);
                             break;
                         case 1:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, c, wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, c, wd);
                             break;
                         case 2:
-                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.weekly, c, wd);
+                            EventManager.GetInstance().AddEvent(color, Event.OccurrencyType.daily, c, wd);
                             break;
                     }
                 } catch (Exception e) {

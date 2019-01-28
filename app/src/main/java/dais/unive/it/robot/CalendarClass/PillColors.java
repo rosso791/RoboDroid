@@ -2,10 +2,11 @@ package dais.unive.it.robot.CalendarClass;
 
 
 public enum PillColors {
-    blue(0),
+    empty(0),
     red(1),
-    yellow(2),
-    green(3);
+    blue(2),
+    green(3),
+    yellow(4);
 
     private Integer hierarchy;
 

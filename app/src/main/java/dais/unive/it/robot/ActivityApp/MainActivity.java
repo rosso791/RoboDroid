@@ -34,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DataExchange.GetInstance();
-        /*DataExchange.IncreaseColorQuantity(1,5);
-        DataExchange.IncreaseColorQuantity(2,1);
-        DataExchange.IncreaseColorQuantity(3,2);*/
+
 //        try{
             // ToDo rimettere il EV3 con il blocco try..catch
 //            EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());
