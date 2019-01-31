@@ -30,32 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DataExchange.GetInstance();
 
-        //try{
-            // ToDo rimettere il EV3 con il blocco try..catch
-            //EV3 ev3 = new EV3(new BluetoothConnection("EV3").connect());
-            new Handler().postDelayed(() -> {
-                Intent i = new Intent(MainActivity.this, MenuActivity.class);
-                startActivity(i);
-                finish();
-            }, TIME_OUT);
-        //}
-       /*catch(IOException e ){
-           AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("No connection");
-            //ToDo alertDialogBuilder.setIcon();  se si vuole inserire un immagine
-            alertDialogBuilder.setMessage("Connessione bluetooth non trovata, controllare che il dispositivo sia connesso");
-            alertDialogBuilder.setCancelable(false);
-            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    finish();
-                }
-            });
-            alertDialogBuilder.show();
 
-            Log.e(TAG, "fatal error: cannot connect to EV3");
-            e.printStackTrace();
-        }*/
+        new Handler().postDelayed(() -> {
+            Intent i = new Intent(MainActivity.this, MenuActivity.class);
+            startActivity(i);
+            finish();
+        }, TIME_OUT);
+
 
     }
 }

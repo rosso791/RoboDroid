@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-
 import dais.unive.it.robot.Automation.DataExchange;
 
 import dais.unive.it.robot.R;
@@ -24,7 +23,9 @@ public class StatusActivity extends AppCompatActivity {
     private ListView listView;
     NotificationManager notificationManager;
     Handler handler = new Handler();
+    Context context = this;
     private static final long TIME_DELAY = 100;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class StatusActivity extends AppCompatActivity {
 
     }
 
-    Runnable updateTextRunnable=new Runnable(){
+    Runnable updateTextRunnable = new Runnable() {
         public void run() {
             TextView redValue = findViewById(R.id.redNumber);
             TextView blueValue = findViewById(R.id.blueNumber);
@@ -68,12 +69,11 @@ public class StatusActivity extends AppCompatActivity {
 
             if (DataExchange.GetNotificationCode() == 0) {
                 notify.setText("Non ci sono problemi");
-            }
-            else{
+            } else {
                 notify.setText(DataExchange.GetNotificationDescription());
             }
 
-            if (DataExchange.GetNotificationCode() != 0) {
+            if (DataExchange.GetNotificationCode() != 0 && DataExchange.GetNotificationCode() != -5) {
                 alarmButton.setEnabled(true);
             } else alarmButton.setEnabled(false);
 

@@ -49,7 +49,7 @@ public class EV3DataHandler {
         cmd[pos] = (byte) 0;
         Bytecode bc = new Bytecode();
         bc.addToByteCode(cmd);
-        api.sendMailbox(0,bc);
+        api.sendMailbox(0, bc);
     }
 
     //Get EV3 global variable from specified memory index

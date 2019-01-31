@@ -30,7 +30,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         DataExchange.GetInstance();
-        // TODO Sebastian - sample data to eliminate
         EventData tempData = new EventData();
         ArrayList<Event> tempEventList = tempData.getEventList();
 
@@ -39,7 +38,6 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
         Context context = getApplicationContext();
 
         this.drawCalendarHead(tableLayout, context);
-        // TODO Sebastian -  modify tempEventList parameter with real eventList
         this.drawCalendar(tempEventList, tableLayout, context);
 
 
@@ -160,10 +158,9 @@ public class CalendarActivity extends AppCompatActivity implements PopupMenu.OnM
             case R.id.add:
                 Intent intent2 = new Intent(CalendarActivity.this, AddEvent.class);
                 startActivity(intent2);
-                //TODO Sebastian - modifica 01a: aggiunto break
+
                 break;
             case R.id.delete:
-                //TODO Sebastian - modifica 01a: aggiunto questa partea, break incluso
                 Intent intent3 = new Intent(CalendarActivity.this, EliminateEvent.class);
                 startActivity(intent3);
                 break;

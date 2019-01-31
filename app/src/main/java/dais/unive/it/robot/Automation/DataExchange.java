@@ -65,6 +65,12 @@ public class DataExchange {
         }
     }
 
+    public static void printQueue(){
+        for (int i = 0; i<colorRequestQueue.size(); i++){
+            System.out.println(colorRequestQueue.peek());
+        }
+    }
+
     //Remove color from queue
     public static void RemoveColorFromDischargeQueue() {
         if (colorRequestQueue.size() > 0)

@@ -37,9 +37,9 @@ public class EliminateEvent extends AppCompatActivity {
     ArrayList<Event> tempEventList = tempEventData.getEventList();
 
     /**
-     eliminatedEventsList: elements checked by the user ready to eliminate
-     checkBoxIdList: list of Ids used by listeners to find selected items
-     checkBoxList: list of checkBoxes used to select all boxes on the first row Button listener
+     * eliminatedEventsList: elements checked by the user ready to eliminate
+     * checkBoxIdList: list of Ids used by listeners to find selected items
+     * checkBoxList: list of checkBoxes used to select all boxes on the first row Button listener
      */
     ArrayList<Event> eliminatedEventsList = new ArrayList<>();
     ArrayList<Integer> checkBoxIdList = new ArrayList<>();
@@ -56,12 +56,13 @@ public class EliminateEvent extends AppCompatActivity {
         for (int i = 0; i < tempEventList.size(); i++)
             booleanList.add(false);
         eliminateButton = findViewById(R.id.eliminate_button);
-        eliminateButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View w) {eliminate();}
+        eliminateButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View w) {
+                eliminate();
+            }
         });
 
-        //todo: eliminate
-        for (int i = 0; i < tempEventList.size(); i++){
+        for (int i = 0; i < tempEventList.size(); i++) {
             Log.i("elements", "color: " + tempEventList.get(i).getColor());
         }
 
@@ -93,7 +94,7 @@ public class EliminateEvent extends AppCompatActivity {
 
         String[] tempStrings = {"Ora", "Giorno", "Colore"};
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             Button tempButton = new Button(inputContext);
             tempButton.setTextColor(Color.WHITE);
             tempButton.setBackgroundColor(Color.DKGRAY);
@@ -117,7 +118,7 @@ public class EliminateEvent extends AppCompatActivity {
                 }
                 */
                 //eliminatedEventsList.clear();
-                for (int i = 0; i < checkBoxList.size(); i++){
+                for (int i = 0; i < checkBoxList.size(); i++) {
                     checkBoxList.get(i).setChecked(isChecked);
                     booleanList.set(i, isChecked); //setto anche nella lista di boolean, in teoria dovrebbe bastare il settaggio nella checkBoxList
                     //Log.i("elements", "to cancel: " + Integer.toString(i) + " - " + booleanList.get(i));
@@ -129,7 +130,7 @@ public class EliminateEvent extends AppCompatActivity {
         inputTableLayout.addView(firstTableRow);
 
         // Create the dynamic table, each 'i' cycle is a row
-        for (int i = 0; i < listSize; i++){
+        for (int i = 0; i < listSize; i++) {
             Event tempEvent = eventList.get(i);
 
             // Create a new table row
@@ -173,7 +174,7 @@ public class EliminateEvent extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int thisId = buttonView.getId();
 
-                    for (int i = 0; i < checkBoxIdList.size(); i++){
+                    for (int i = 0; i < checkBoxIdList.size(); i++) {
                         if (thisId == checkBoxIdList.get(i)) {
                             booleanList.set(i, isChecked);
                             //Log.i("elements", "item: " + Integer.toString(i) + ", color " + tempEventList.get(i).getColor() +" set to " + booleanList.get(i));
@@ -220,7 +221,7 @@ public class EliminateEvent extends AppCompatActivity {
         }
     }
 
-    public void eliminate(){
+    public void eliminate() {
         /*
         for (int i = 0; i < eliminatedEventsList.size(); i++) {
             try {
@@ -232,7 +233,7 @@ public class EliminateEvent extends AppCompatActivity {
         */
         //Log.i("elements", "tempEventList size: " + tempEventList.size());
 
-        for (int i = booleanList.size() - 1; i >= 0 ; i--){
+        for (int i = booleanList.size() - 1; i >= 0; i--) {
             if (booleanList.get(i)) {
                 //Log.i("elements", "cancelled: " + Integer.toString(i) + " - " + tempEventList.get(i).getColor());
                 EventManager.GetInstance().DeleteEvent(tempEventList.get(i));

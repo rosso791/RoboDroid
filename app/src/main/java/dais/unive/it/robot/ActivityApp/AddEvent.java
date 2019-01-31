@@ -19,13 +19,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dais.unive.it.robot.Automation.DataExchange;
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
-import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
 import dais.unive.it.robot.R;
@@ -38,11 +35,6 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         DataExchange.GetInstance();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
-        //Cancellato perché gestisco con Landscape
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Occurrency Spinner
         Spinner occurrencySpinner = findViewById(R.id.occurrencySpinner);
@@ -83,15 +75,7 @@ public class AddEvent extends AppCompatActivity {
                         daySpinner.setAdapter(voidDayAdapter);
                         break;
                 }
-                /*
-                // Notify the selected item texe ToDo eliminare toast
-                Toast.makeText
-                        (getApplicationContext(), "Selected : " + selectedItemText,
-                                Toast.LENGTH_SHORT).show();
-                Toast.makeText
-                        (getApplicationContext(), "number : " + Integer.toString(occurrency),
-                                Toast.LENGTH_SHORT).show();
-                 */
+
             }
 
             @Override
@@ -170,7 +154,6 @@ public class AddEvent extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 save(v);
                 Intent i = new Intent(AddEvent.this, CalendarActivity.class);
                 startActivity(i);
@@ -190,14 +173,9 @@ public class AddEvent extends AppCompatActivity {
                 this.context = context;
                 colors = new ArrayList<>();
                 int retrieve[] = context.getResources().getIntArray(R.array.items_colors);
-                for (int i = 1; i < retrieve.length; i++)
-                    colors.add(retrieve[i]);
-
-                //old cycle
-                /*
-                for (int re : retrieve)
+                for (int re : retrieve) {
                     colors.add(re);
-                */
+                }
             }
 
             @Override
@@ -229,7 +207,6 @@ public class AddEvent extends AppCompatActivity {
 
         Spinner colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setAdapter(new SpinnerAdapter(this));
-
 
 
     }

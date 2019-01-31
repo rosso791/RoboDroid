@@ -19,18 +19,16 @@ public class AlertActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("No connection");
-            //ToDo alertDialogBuilder.setIcon();  se si vuole inserire un immagine
-            alertDialogBuilder.setMessage("Connessione bluetooth non trovata, controllare che il dispositivo sia connesso");
-            alertDialogBuilder.setCancelable(false);
-            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    MenuActivity.fa.finish();
-
-                    finish();
-                }
-            });
-            alertDialogBuilder.show();
+        alertDialogBuilder.setTitle("No connection");
+        alertDialogBuilder.setMessage("Connessione bluetooth non trovata, controllare che il dispositivo sia connesso");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                MenuActivity.fa.finish();
+                finish();
+            }
+        });
+        alertDialogBuilder.show();
     }
 }

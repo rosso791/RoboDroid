@@ -24,6 +24,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button showNextActivity;
     private static final String TAG = Prelude.ReTAG("MainActivity");
     public static Activity fa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,7 +49,6 @@ public class MenuActivity extends AppCompatActivity {
             Log.e(TAG, "fatal error: cannot connect to EV3");
             e.printStackTrace();
         }*/
-
 
 
         //Calendar button that leads to CalendarActivity

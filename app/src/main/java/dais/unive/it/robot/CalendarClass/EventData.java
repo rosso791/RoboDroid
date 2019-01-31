@@ -2,6 +2,7 @@ package dais.unive.it.robot.CalendarClass;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.PillColors;
 import dais.unive.it.robot.CalendarClass.WeekDay;
@@ -9,15 +10,15 @@ import dais.unive.it.robot.CalendarClass.WeekDay;
 public class EventData {
     ArrayList<Event> eventList = new ArrayList<>();
 
-    public EventData(){
-        eventList = (ArrayList)EventManager.GetInstance().getAllEvents();
+    public EventData() {
+        eventList = (ArrayList) EventManager.GetInstance().getAllEvents();
     }
 
-    public ArrayList<Event> getEventList(){
+    public ArrayList<Event> getEventList() {
         return eventList;
     }
 
-    public int getNumberOfEvents(){
+    public int getNumberOfEvents() {
         return eventList.size();
     }
 
@@ -41,12 +42,16 @@ public class EventData {
         return WeekDay.Sun;
     }
 
-    private PillColors getColor(int inputInt){
-        switch (inputInt){
-            case 0: return PillColors.blue;
-            case 1: return PillColors.red;
-            case 2: return PillColors.yellow;
-            case 3: return PillColors.green;
+    private PillColors getColor(int inputInt) {
+        switch (inputInt) {
+            case 0:
+                return PillColors.blue;
+            case 1:
+                return PillColors.red;
+            case 2:
+                return PillColors.yellow;
+            case 3:
+                return PillColors.green;
         }
         return PillColors.green;
     }

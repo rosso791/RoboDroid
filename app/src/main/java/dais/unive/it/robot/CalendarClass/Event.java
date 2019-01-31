@@ -10,35 +10,35 @@ public class Event {
 
     public enum OccurrencyType {weekly, daily, onetime}
 
-    Event(WeekDay day, PillColors color, Calendar when, boolean repeat){
+    Event(WeekDay day, PillColors color, Calendar when, boolean repeat) {
         this.day = day;
         this.color = color;
         this.when = when;
         this.repeat = repeat;
     }
 
-    public WeekDay getDay(){
+    public WeekDay getDay() {
         return this.day;
     }
 
-    public PillColors getColor(){
+    public PillColors getColor() {
         return this.color;
     }
 
-    public Calendar getWhen(){
+    public Calendar getWhen() {
         return this.when;
     }
 
-    public boolean getRepeat(){
+    public boolean getRepeat() {
         return this.repeat;
     }
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Event)) return false;
-        return ((Event)o).color == this.color &&
-                ((Event)o).day == this.day &&
-                ((Event)o).when == this.when &&
-                ((Event)o).repeat == this.repeat;
+        if (!(o instanceof Event)) return false;
+        return ((Event) o).color == this.color &&
+                ((Event) o).day == this.day &&
+                ((Event) o).when == this.when &&
+                ((Event) o).repeat == this.repeat;
     }
 }

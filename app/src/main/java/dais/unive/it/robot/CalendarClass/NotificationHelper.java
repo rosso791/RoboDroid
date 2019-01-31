@@ -80,5 +80,6 @@ public class NotificationHelper {
         if (DataExchange.GetNotificationCode() != 0 && DataExchange.GetNotificationCode() != 1000) {
             createNotification("Android", DataExchange.GetNotificationDescription());
         }
+
     }
 }

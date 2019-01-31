@@ -12,11 +12,14 @@ import android.util.Log;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import dais.unive.it.robot.Automation.AutomationTask;
 import dais.unive.it.robot.Automation.DataExchange;
+import dais.unive.it.robot.CalendarClass.Event;
 import dais.unive.it.robot.CalendarClass.EventManager;
 import dais.unive.it.robot.CalendarClass.NotificationHelper;
 import it.unive.dais.legodroid.lib.EV3;
@@ -64,6 +67,7 @@ public class BackgroundService extends Service {
                 .build());*/
 
         Timer timer = new Timer();
+        Timer notify = new Timer();
         NotificationHelper notificationHelper = new NotificationHelper(this);
         DataExchange.GetInstance();
         AutomationTask.GetInstance();
@@ -72,25 +76,25 @@ public class BackgroundService extends Service {
             ev3 = new EV3(new BluetoothConnection("EV3").connect());
             // replace with your own brick name
             Prelude.trap(() -> ev3.run(AutomationTask::StartTimer));
+
+
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     //Prelude.trap(() -> ev3.run(AutomationTask::StartTimer));
                     notificationHelper.checkNotification();
-                    EventManager.GetInstance();
+                    EventManager.GetInstance().checkEvent();
+                    System.out.print("ciao");
                 }
-            }, 0, 60*1000);
+            }, 0, 60 * 1000);
 
-        } catch(IOException e ){
+        } catch (IOException e) {
             Intent dialogIntent = new Intent(this, AlertActivity.class);
             dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(dialogIntent);
             Log.e(TAG, "fatal error: cannot connect to EV3");
             e.printStackTrace();
         }
-
-
-
 
 
     }

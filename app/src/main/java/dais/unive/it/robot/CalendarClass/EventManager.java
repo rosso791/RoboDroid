@@ -36,9 +36,21 @@ public class EventManager extends AppCompatActivity {
 
     private List<Event> events;
     private List<Event> app;
+
     private EventManager() {
         events = EventManager.deserialize(Environment.getExternalStorageDirectory() + FILENAME);
-        timer.schedule( new TimerTask() {
+
+    }
+
+    public static EventManager GetInstance() {
+        if (instance == null) {
+            instance = new EventManager();
+        }
+        return instance;
+    }
+
+    public void checkEvent(){
+        timer.schedule(new TimerTask() {
             public void run() {
                 for(int i = 0; i<events.size(); i++){
                     if(events.get(i).getDay().ordinal() == Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-2&&
@@ -51,6 +63,7 @@ public class EventManager extends AppCompatActivity {
                         }
                     }
                 }
+
                 /*events
                         .stream()
                         .filter(e -> e.getWhen().get(Calendar.HOUR) == Calendar.getInstance().get(Calendar.HOUR)
@@ -62,14 +75,7 @@ public class EventManager extends AppCompatActivity {
                             if(!e.getRepeat()) events.remove(e);
                         });*/
             }
-        }, 0, 10*1000);
-    }
-
-    public static EventManager GetInstance() {
-        if(instance == null) {
-            instance = new EventManager();
-        }
-        return instance;
+        }, 0, 60 * 1000);
     }
 
     private static List<Event> deserialize(String path) {
@@ -77,10 +83,11 @@ public class EventManager extends AppCompatActivity {
         Gson unserializer = new Gson();
         try {
             File file = new File(path);
-            if(file.exists()) {
+            if (file.exists()) {
                 FileReader r = new FileReader(path);
-                java.lang.reflect.Type t = new TypeToken<List<Event>>(){}.getType();
-                events = (ArrayList<Event>)unserializer.fromJson(r, t);
+                java.lang.reflect.Type t = new TypeToken<List<Event>>() {
+                }.getType();
+                events = (ArrayList<Event>) unserializer.fromJson(r, t);
             }
         } catch (IOException e) {
             Toast.makeText(instance.getApplicationContext(), "Error reading a backup of the calendar", Toast.LENGTH_LONG).show();
@@ -102,18 +109,18 @@ public class EventManager extends AppCompatActivity {
     }
 
     public void AddEvent(PillColors color, Event.OccurrencyType occurrencyType, Calendar when, WeekDay day) throws Exception {
-        switch(occurrencyType) {
+        switch (occurrencyType) {
             case daily:
-                for (WeekDay wday: WeekDay.values()) {
+                for (WeekDay wday : WeekDay.values()) {
                     this.events.add(new Event(wday, color, when, true));
                 }
                 break;
             case weekly:
-                if(day == null) throw new Exception("The day isn't specified for a weekly event");
+                if (day == null) throw new Exception("The day isn't specified for a weekly event");
                 this.events.add(new Event(day, color, when, true));
                 break;
             case onetime:
-                if(day == null) throw new Exception("The day isn't specified for a onetime event");
+                if (day == null) throw new Exception("The day isn't specified for a onetime event");
                 this.events.add(new Event(day, color, when, false));
                 break;
         }
@@ -161,4 +168,6 @@ public class EventManager extends AppCompatActivity {
         events.sort(Comparator.comparingInt(p -> p.getWhen().get(Calendar.HOUR_OF_DAY)));
         return events;
     }
+
+
 }

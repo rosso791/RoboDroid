@@ -1,6 +1,7 @@
 package dais.unive.it.robot.Automation;
 
 import android.os.Handler;
+import android.provider.ContactsContract;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -29,36 +30,42 @@ public class AutomationTask {
     private static int qtyBlue;
     private static int qtyGreen;
     private static int qtyYellow;
+    private static int req;
+    private static int quantity;
 
     private static final AutomationTask automationTask = new AutomationTask();
-    private AutomationTask(){};
 
-    public static AutomationTask GetInstance(){
+    private AutomationTask() {
+    }
+
+    ;
+
+    public static AutomationTask GetInstance() {
         return automationTask;
     }
 
     //To stop timer
-    public static void StopTimer(){
-        if(timer != null){
+    public static void StopTimer() {
+        if (timer != null) {
             timer.cancel();
             timer.purge();
         }
     }
 
     //To start timer
-    public static void StartTimer(EV3.Api api){
+    public static void StartTimer(EV3.Api api) {
 
         EV3DataHandler ev3DataHandler = new EV3DataHandler(api);
         timer = new Timer();
-        timerTask = new TimerTask(){
+        timerTask = new TimerTask() {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
 
                         gApi = api;
                         try {
-                            if (memCheckCounter <= 2){
-                                if (stepCounter == 48){
+                            if (memCheckCounter <= 2) {
+                                if (stepCounter == 48) {
                                     DataExchange.SetNotificationCode(-5);
                                     StopTimer();
                                 }
@@ -74,7 +81,7 @@ public class AutomationTask {
 
                                 if (x == 9999) {
                                     gVQtyColor = gVIndex;
-                                    memCheckCounter ++;
+                                    memCheckCounter++;
                                 }
 
                                 if (memCheckCounter == 2) {
@@ -83,7 +90,7 @@ public class AutomationTask {
                                     System.out.println("Done!");
                                 }
 
-                            }else {
+                            } else {
 
                                 if (DataExchange.GetNotificationCode() == 1000)
                                     ev3DataHandler.sendDataToMailBox("Reset", "ResetNotification");
@@ -91,10 +98,10 @@ public class AutomationTask {
                                 notification = ev3DataHandler.getGlobalVariableIntValue(gVNotification).get();
                                 color = ev3DataHandler.getGlobalVariableIntValue(gVQtyColor).get();
 
-                                qtyRed=((color%10000)-(color%1000))/1000;
-                                qtyBlue=((color%10)-(color%1))/1;
-                                qtyGreen=((color%100)-(color%10))/10;
-                                qtyYellow=((color%1000)-(color%100))/100;
+                                qtyRed = ((color % 10000) - (color % 1000)) / 1000;
+                                qtyBlue = ((color % 10) - (color % 1)) / 1;
+                                qtyGreen = ((color % 100) - (color % 10)) / 10;
+                                qtyYellow = ((color % 1000) - (color % 100)) / 100;
 
                                 DataExchange.SetNotificationCode(notification);
                                 DataExchange.SetColorQuantity(1, qtyRed);
@@ -113,6 +120,21 @@ public class AutomationTask {
                                     pickUpDone = false;
                                     ev3DataHandler.sendDataToMailBox("ColorRequest", "CIAO");
                                 }
+
+
+                                if (notification == -4 ) {
+                                    int col = DataExchange.PeekColorFromDischargeQueue();
+                                    if (DataExchange.GetColorQuantity(col) >=1) {
+                                        DataExchange.SetColorQuantity(1, qtyRed);
+                                        DataExchange.SetColorQuantity(2, qtyBlue);
+                                        DataExchange.SetColorQuantity(3, qtyGreen);
+                                        DataExchange.SetColorQuantity(4, qtyYellow);
+                                        DataExchange.SetNotificationCode(0);
+                                        //pickUpReady = false;
+                                       // pickUpDone = true;
+                                    }
+                                }
+
 
                                 if (pickUpDone) {
                                     switch (DataExchange.PeekColorFromDischargeQueue()) {
@@ -139,7 +161,7 @@ public class AutomationTask {
                                 }
 
                             }
-                        } catch (IOException | InterruptedException | ExecutionException  e) {
+                        } catch (IOException | InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
 
@@ -151,7 +173,7 @@ public class AutomationTask {
 
     }
 
-    public static String GetLogMessage(){
+    public static String GetLogMessage() {
         return logMessage;
     }
 
